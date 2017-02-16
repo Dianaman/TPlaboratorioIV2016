@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sala de juegos</title>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="bower_components/satellizer/dist/satellizer.min.js"></script>
+
+	<script src="js/funciones.js"></script>
+	<script src="js/ngThumb.js"></script>
+
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+		
+</head>
+<body ng-app="salaDeJuegosApp">
+	<div class="links">
+      <ul class="nav nav-tabs">
+         <li><a ui-sref="usuario.login">Usuarios</a></li>
+         <li><a ui-sref="persona.menu">Personas</a></li>   
+      </ul>
+    </div>
+	<div ui-view></div>
+</body>
+</html>

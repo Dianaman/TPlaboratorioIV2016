@@ -1,0 +1,11 @@
+<form class="form-persona" name="FormLogIn">
+	<h1>Login</h1>
+
+	<input type="text" name="usuario" ng-model="usuario.usuario" placeholder="Ingrese usuario" required/>
+    <input type="password" name="clave" ng-model="usuario.clave" placeholder="Ingrese clave" required/>
+
+
+	<br><br><button type="submit" name="btnRegistrar" ng-disabled=" !FormLogIn.$valid" ng-click="enviarDatos()">Enviar datos</button>
+
+	<button ng-click="authenticate('github')">Sign in with GitHub</button>
+</form>

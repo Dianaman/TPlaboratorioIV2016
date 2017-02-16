@@ -1,0 +1,10 @@
+<form class="form-persona" name="FormSignIn">
+	<h1>Registro</h1>
+
+	<input type="text" name="usuario" ng-model="usuario.usuario" placeholder="Ingrese usuario" required/>
+    <input type="password" name="clave" ng-model="usuario.clave" placeholder="Ingrese clave" required/>
+    <input type="password" name="reclave" ng-model="usuario.reclave" placeholder="Repita la clave" required/>
+
+
+	<br><br><button type="submit" name="btnRegistrar" ng-disabled="usuario.clave != usuario.reclave && !FormSignIn.$valid" ng-click="enviarDatos()">Enviar datos</button>
+</form>
