@@ -17,12 +17,17 @@
 		
 </head>
 <body ng-app="salaDeJuegosApp">
-	<div class="links">
-      <ul class="nav nav-tabs">
-         <li><a ui-sref="usuario.login">Usuarios</a></li>
-         <li><a ui-sref="persona.menu">Personas</a></li>   
-      </ul>
-    </div>
 	<div ui-view></div>
+
+	<div id="footer">
+		<button ng-click="IrARegistro()" ng-show="!usuario.loggeado">Registro</button>
+		<button ng-click="IrALogin()" ng-show="!usuario.loggeado">Entrar</button>
+		<button ng-click="IrAMenu()">Menu</button>
+		<button ng-click="IrAPedido()" ng-show="usuario.loggeado">Pedido</button>
+		<button ng-click="IrAInfo()">Sobre Nosotros</button>
+
+
+
+	</div>
 </body>
 </html>
