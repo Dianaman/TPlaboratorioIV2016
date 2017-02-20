@@ -89,7 +89,7 @@ class Cliente
 					
 	}
 	
-	public static function TraerTodasLosClientes()
+	public static function TraerTodosLosClientes()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		//$consulta =$objetoAccesoDato->RetornarConsulta("select * from cliente");
@@ -110,7 +110,7 @@ class Cliente
 		
 	}
 	
-	public static function Modificarcliente($cliente)
+	public static function ModificarCliente($cliente)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			/*$consulta =$objetoAccesoDato->RetornarConsulta("
@@ -132,7 +132,7 @@ class Cliente
 
 //--------------------------------------------------------------------------------//
 
-	public static function Insertarcliente($cliente)
+	public static function InsertarCliente($cliente)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		//$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into cliente (nombre,direccion,email,telefono)values(:nombre,:direccion,:email,:telefono)");

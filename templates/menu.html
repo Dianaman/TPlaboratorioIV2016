@@ -1,0 +1,14 @@
+<head>
+	<meta charset="UTF-8">
+</head>	
+
+<div class="container">
+    <h1>Menu</h1>
+    <div class="listcard" ng-repeat="pizza in pizzas">
+        <div class="card" ng-click="selectPizza(pizza)">
+            <p class="card-title">{{pizza.title}}</p>
+            <img class="card-img" src="{{pizza.img}}">
+            <p class="card-desc">{{pizza.desc}}</p>
+        </div>
+    </div>
+</div>

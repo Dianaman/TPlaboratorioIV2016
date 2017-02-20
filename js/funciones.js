@@ -85,17 +85,115 @@ salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 				}
 			})
 
-		
+		.state(
+			"menu", {
+				url: '/menu',
+				templateUrl: 'templates/menu.html',
+				controller: 'MenuCtrl'	
+			})
+
+		.state(
+			"menu-pizza", {
+				url: '/menu/:pizza',
+				templateUrl: 'templates/menu-pizza.html',
+				controller: 'MenuPizzaCtrl'	
+			})
+
 		$urlRouterProvider.otherwise("/persona/menu");
 		
 });
 
-salaApp.run(function($rootScope){
+salaApp.run(function($rootScope, $state){
   $rootScope.usuario = {
   	nombre: '',
   	tipo: '',
+  	loggeado:true
   };
+
+  $rootScope.IrAMenu = function(){
+  	$state.go('menu');
+  }
+
 });
+
+salaApp.controller("MenuCtrl", function($scope, $state, $http){
+	$scope.pizzas = [
+		{
+			id: 0001,
+			title: 'Pizza de Muzarella',
+			desc: 'Queso muzzarella, salsa de tomate, oregano y aceitunas',
+			img: 'img/muzzarella.jpg'
+		},
+		{
+			id: 0002,
+			title: 'Pizza Napolitana',
+			desc: 'Queso muzzarella, salsa de tomate, tomates en rodajas, oregano, ajo y aceitunas',
+			img: 'img/napolitana.jpg'
+		},
+		{
+			id: 0003,
+			title: 'Fainá',
+			desc: 'Masa con harina de garbanzos',
+			img: 'img/faina.jpg'
+		}
+	];
+
+	$http.get('http://localhost/ws2/pizza').then(function(response){
+		var arrpizzas = [];
+		$scope.pizzas = [];
+		
+		for(var i=0; i< response.data.length; i++)
+		{
+			var title = response.data[i].tipo + ' ' + response.data[i].nombre;
+
+			if(arrpizzas.indexOf(title)<=-1){
+				var pizza = {
+					title: title,
+					nombre: response.data[i].nombre,
+					tipo: response.data[i].tipo,
+					desc: 'asdsadad'
+				}
+				arrpizzas.push(title);
+				$scope.pizzas.push(pizza);
+			}
+		}
+
+
+	}, function errorCallback(response){
+		console.error(response);
+	});
+
+
+	$scope.selectPizza = function(pizza){
+		var unaPizza = JSON.stringify(pizza);
+		$state.go('menu-pizza', {pizza: unaPizza});
+	}
+});
+
+salaApp.controller("MenuPizzaCtrl", function($stateParams, $scope, $http){
+	$scope.pizza;
+	
+	var tipo = JSON.parse($stateParams.pizza);
+	console.log(tipo);
+
+	var param = {
+		tipo: tipo.tipo,
+		nombre: tipo.nombre
+	}
+
+	$http.get('http://localhost/ws2/pizza/tipo/' + JSON.stringify(param)).then(
+		function(response){
+			console.log(response);
+			$scope.pizza = response.data;
+		}, function errorCallback(response){
+			alert('Ocurrió un error, inténtelo más tarde');
+			console.error(response);
+		});
+
+	$scope.addCart = function(){
+
+	}
+})
 
 salaApp.controller("PersonaMenuCtrl", function($scope, $state){
 	$scope.irAAlta = function(){
@@ -143,7 +241,7 @@ salaApp.controller("PersonaAltaCtrl", function($scope, $state, FileUploader, $ht
 		.then(function(response){
 			console.info(response);
 
-			$state.go('persona.grilla');
+			$state.go('usuario.login');
 		}, function errorCallback(response){
 			console.info(response);
 		});
@@ -203,6 +301,8 @@ salaApp.controller("PersonaGrillaCtrl", function($scope, $http, $state){
 salaApp.controller("LoginCtrl", function($scope, $auth){
 	 $scope.authenticate = function(provider) {
       $auth.authenticate(provider);
+
+      $state.go('menu');
     };
 });
 
