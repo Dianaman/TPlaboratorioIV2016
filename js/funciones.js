@@ -516,7 +516,7 @@ salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioAct
 
 });
 
-salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActual, SrvPedidos, SrvProductos, SrvSucursales, SrvUsuarios, SrvEncuestas){
+salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActual, SrvPedidos, SrvProductos, SrvLocales, SrvUsuarios, SrvEncuestas){
 
 	$scope.titulo = "Listado de Pedidos";
 
@@ -573,7 +573,7 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
 
     $scope.MostrarSucursal = function(sucursal){
     	console.log("MI SUCURSAL ANTES", $scope.SucursalParaMostrar);
-        SrvSucursales.traerUna(sucursal)
+        SrvLocales.traerUna(sucursal)
         	.then(function (respuesta){
 	    		console.info("sucursal encontrada", respuesta);
 		        $scope.SucursalParaMostrar = respuesta.data;
@@ -721,7 +721,7 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
 
 });
 
-salaApp.controller('PedidoAltaCtrl', function($scope, $state, $timeout, $interval, UsuarioActual, SrvPedidos, SrvProductos, SrvSucursales, SrvUsuarios, SrvOfertas){
+salaApp.controller('PedidoAltaCtrl', function($scope, $state, $timeout, $interval, UsuarioActual, SrvPedidos, SrvProductos, SrvLocales, SrvUsuarios, SrvOfertas){
 
 	$scope.usuario = JSON.parse(UsuarioActual.getFullData());
 
@@ -792,7 +792,7 @@ salaApp.controller('PedidoAltaCtrl', function($scope, $state, $timeout, $interva
 
     		console.info("todos los productos", respuesta);
         	$scope.ListaProductos = respuesta.data;
-        	SrvSucursales.traerTodas()
+        	SrvLocales.traerTodas()
 		    	.then(function (respuesta){
 
 		    		console.info("todas las sucursales", respuesta);
@@ -903,7 +903,7 @@ salaApp.controller('PedidoAltaCtrl', function($scope, $state, $timeout, $interva
 
 });
 
-salaApp.controller('OfertasCtrl', function($scope, $state, $timeout, SrvOfertas, SrvProductos, SrvSucursales){
+salaApp.controller('OfertasCtrl', function($scope, $state, $timeout, SrvOfertas, SrvProductos, SrvLocales){
 
 	$scope.titulo = "Listado de Ofertas";
 
@@ -987,7 +987,7 @@ salaApp.controller('OfertasCtrl', function($scope, $state, $timeout, SrvOfertas,
 
     $scope.MostrarSucursal = function(sucursal){
     	console.log("MI SUCURSAL ANTES", $scope.SucursalParaMostrar);
-        SrvSucursales.traerUna(sucursal)
+        SrvLocales.traerUna(sucursal)
         	.then(function (respuesta){
 	    		console.info("sucursal encontrada", respuesta);
 		        $scope.SucursalParaMostrar = respuesta.data;
@@ -1020,7 +1020,7 @@ salaApp.controller('OfertasCtrl', function($scope, $state, $timeout, SrvOfertas,
 
 });
 
-salaApp.controller('OfertaAltaCtrl', function($scope, $state, $timeout, UsuarioActual, SrvOfertas, SrvProductos, SrvSucursales){
+salaApp.controller('OfertaAltaCtrl', function($scope, $state, $timeout, UsuarioActual, SrvOfertas, SrvProductos, SrvLocales){
 
 	$scope.usuario = JSON.parse(UsuarioActual.getFullData());
 
@@ -1034,7 +1034,7 @@ salaApp.controller('OfertaAltaCtrl', function($scope, $state, $timeout, UsuarioA
 
     		console.info("todos los productos", respuesta);
         	$scope.ListaProductos = respuesta.data;
-        	SrvSucursales.traerTodas()
+        	SrvLocales.traerTodas()
 		    	.then(function (respuesta){
 
 		    		console.info("todas las sucursales", respuesta);
