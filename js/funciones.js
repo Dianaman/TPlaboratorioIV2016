@@ -158,7 +158,7 @@ salaApp.run(function($rootScope, $state){
 
 });
 
-salaApp.controller("MenuCtrl", function($scope, $state, $http){
+salaApp.controller("MenuCtrl", function($scope, $state, $http, SrvProductos){
 	$scope.pizzas = [
 		{
 			id: 0001,
@@ -179,7 +179,7 @@ salaApp.controller("MenuCtrl", function($scope, $state, $http){
 			img: 'img/faina.jpg'
 		}
 	];
-
+/*
 	$http.get('http://localhost/ws2/pizza').then(function(response){
 		var arrpizzas = [];
 		$scope.pizzas = [];
@@ -203,8 +203,13 @@ salaApp.controller("MenuCtrl", function($scope, $state, $http){
 
 	}, function errorCallback(response){
 		console.error(response);
-	});
+	});*/
 
+	SrvProductos.traerTodos().then(function(respuesta){
+		$scope.pizzas = respuesta.data;
+	}).catch(function (error){
+		console.error('error', error);
+	});
 
 	$scope.selectPizza = function(pizza){
 		var unaPizza = JSON.stringify(pizza);
@@ -479,12 +484,12 @@ salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioAct
 
 		console.info("suc", $scope.sucursal);
 
-	  	SrvLocales.insertarSucursal(sucursal)
+	  	SrvLocales.insertarSucursal(suc)
 			.then(function (respuesta){
 
 				console.info("respuesta", respuesta);
 
-				$state.go('menuSucursales.alta');
+				$state.go('local-alta');
 
 			}).catch(function (error){
 				console.info("error", error);
@@ -497,17 +502,17 @@ salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioAct
 		if($scope.SubidorDeArchivos.queue[0]!=undefined)
 		{
 			var nombreFoto = $scope.SubidorDeArchivos.queue[0]._file.name;
-			$scope.suc.foto1=nombreFoto;
+			$scope.sucursal.foto1=nombreFoto;
 		}
 		if($scope.SubidorDeArchivos.queue[1]!=undefined)
 		{
 			var nombreFoto = $scope.SubidorDeArchivos.queue[1]._file.name;
-			$scope.suc.foto2=nombreFoto;
+			$scope.sucursal.foto2=nombreFoto;
 		}
 		if($scope.SubidorDeArchivos.queue[2]!=undefined)
 		{
 			var nombreFoto = $scope.SubidorDeArchivos.queue[2]._file.name;
-			$scope.suc.foto3=nombreFoto;
+			$scope.sucursal.foto3=nombreFoto;
 		}
 
 		$scope.SubidorDeArchivos.uploadAll();

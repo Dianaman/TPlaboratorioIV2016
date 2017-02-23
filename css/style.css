@@ -1,6 +1,7 @@
 body{
     font-family: verdana;
     font-size: 1.5rem;
+    background-color:#A51D1D;
 }
 
 .form-persona{
@@ -47,7 +48,7 @@ select, button
 
 #footer {
     display:inline;
-    background-color: #E60D0D;
+    background-color: black;
     width:100%;
     height:40px;
     bottom:0px;

@@ -1,15 +1,14 @@
 angular.module('salaDeJuegosApp')
 .factory('factoryRutas', function (){
 	var objeto = {};
-
   objeto.nombre = "Factory de rutas";
-  objeto.RutaOfertas = 'http://localhost:8000/TPlaboratorioIV2016/ws2/ofertas/';
-  objeto.RutaPedidos = 'http://localhost:8000/TPlaboratorioIV2016/ws2/pedidos/';
-  objeto.RutaProductos = 'http://localhost:8000/TPlaboratorioIV2016/ws2/productos/';
-  objeto.RutaEncuestas = 'http://localhost:8000/TPlaboratorioIV2016/ws2/encuestas/';
-  objeto.RutaSucursales = 'http://localhost:8000/TPlaboratorioIV2016/ws2/sucursales/';
-  objeto.RutaUsuarios = 'http://localhost:8000/TPlaboratorioIV2016/ws2/usuarios/';
-  objeto.RutaFotos = 'http://localhost:8000/TPlaboratorioIV2016/ws2/servidor/nexoFoto.php';
+  objeto.RutaOfertas = 'http://localhost/TPlaboratorioIV2016/ws1/ofertas/';
+  objeto.RutaPedidos = 'http://localhost/TPlaboratorioIV2016/ws1/pedidos/';
+  objeto.RutaProductos = 'http://localhost/TPlaboratorioIV2016/ws1/productos/';
+  objeto.RutaEncuestas = 'http://localhost/TPlaboratorioIV2016/ws1/encuestas/';
+  objeto.RutaSucursales = 'http://localhost/TPlaboratorioIV2016/ws1/sucursales/';
+  objeto.RutaUsuarios = 'http://localhost/TPlaboratorioIV2016/ws1/usuarios/';
+  objeto.RutaFotos = 'http://localhost/TPlaboratorioIV2016/ws1/servidor/nexoFoto.php';
 
   return objeto;
 })

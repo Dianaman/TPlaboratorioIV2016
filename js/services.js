@@ -287,7 +287,7 @@ angular.module('salaDeJuegosApp')
 	this.traerUrlFotos = TraerUrlFotos;
 	
 	var url = factoryRutas.RutaProductos;
-
+	
 	function InsertarProducto(producto){
 		return $http.post(url + producto)
 			.then(function (respuesta){

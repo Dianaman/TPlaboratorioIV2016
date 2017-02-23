@@ -1,18 +1,14 @@
-<h3>ALTA DE SUCURSALES</h3>
-<form class="formContainer" id="FormIngreso" name="FormIngreso">
 
+<form class="form-persona" style="margin: 10% 30%" id="FormIngreso" name="FormIngreso">
+<h1>ALTA DE SUCURSALES</h1>
     
-  <input class="loginText" ng-model="sucursal.nombre" type="text" placeholder="Ingrese nombre de sucursal" name="sucNom" required>
+  <input ng-model="sucursal.nombre" type="text" placeholder="Ingrese nombre de sucursal" name="sucNom" required>
 
-  <input class="loginText" ng-model="sucursal.direccion" type="text" placeholder="Ingrese dirección del local" name="sucDir" required>
+  <input ng-model="sucursal.direccion" type="text" placeholder="Ingrese dirección del local" name="sucDir" required>
 
-  <input class="loginText" ng-model="sucursal.localidad" type="text" placeholder="Ingrese la localidad" name="sucLoc" required>
+  <input ng-model="sucursal.localidad" type="text" placeholder="Ingrese la localidad" name="sucLoc" required>
 
-  <input class="loginText" ng-model="sucursal.lat" type="text" placeholder="Ingrese latitud" name="sucLat" required>
-
-  <input class="loginText" ng-model="sucursal.lng" type="text" placeholder="Ingrese longitud" name="sucLng" required>
-
-  <input class="loginText" ng-model="sucursal.telefono" type="text" placeholder="Ingrese número de teléfono" name="sucTel" required>
+  <input ng-model="sucursal.telefono" type="text" placeholder="Ingrese número de teléfono" name="sucTel" required>
 
   <label><b>Fotos de la Sucursal:</b></label>
   <input class="loginText" type="file" nv-file-select uploader="SubidorDeArchivos">
