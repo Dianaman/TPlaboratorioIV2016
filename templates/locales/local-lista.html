@@ -1,0 +1,70 @@
+<div>
+	<h4>Sucursales</h4>
+	<table class="table table-hover">
+		<tr>
+			<th>Id</th>
+			<th>Nombre</th>
+		    <th>Localidad</th>
+		    <th>Encargado</th>
+		    <th>Descripción</th>
+		    <th>Ofertas</th>
+		    <th ng-show="userActual.cargo == 'Encargado'">Modificar</th>
+		</tr>
+
+		<tr ng-repeat="sucursal in ListaSucursales">
+			<td>{{sucursal.idSuc}}</td>
+			<td>{{sucursal.nombre}}</td>
+			<td>{{sucursal.localidad}}</td>
+			<td>
+				<button class="btn btn-disabled" ng-show="sucursal.encargado == 0">Sin Encargado</button>
+				<button class="btn btn-info" ng-show="sucursal.encargado == 1" ng-click="MostrarEncargado(sucursal.idSuc)">Ver Encargado</button>
+			</td>
+			<td> <button class="btn btn-info" ng-click="MostrarSucursal(suc)" >Ver Descripción</button> </td>
+			<td> <button class="btn btn-info" ng-click="MostrarOfertas(suc)" >Ver Ofertas</button> </td>
+			<td ng-show="userActual.cargo == 'Encargado'">
+				 <button class="btn btn-success" ng-click="ModificarSucursal(suc)" >Modificar</button>
+			</td>
+		</tr>
+	</table>
+
+	<div id="id01" style="display:none;" class="modal">
+	  
+	  <form class="modal-content animate" >
+
+	      <modal-sucursal sucursalporparametro='SucursalParaMostrar'></modal-sucursal>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">Cerrar</button> 
+
+	  </form>
+	</div>
+
+	<div id="id02" style="display:none;" class="modal">
+	  
+	  <form class="modal-content animate" >
+
+	      <modal-usuario usuarioporparametro='EncargadoParaMostrar'></modal-usuario>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id02').style.display='none'">Cerrar</button> 
+
+	  </form>
+	</div>
+
+	<div id="id03" style="display:none;" class="modal">
+	  
+	  <form class="modal-content animate" >
+
+	      <modal-modif-sucursal sucursalporparametro='SucursalParaModificar' modifparent='RealizarModificacion()' cancelmodif="CancelarModificacion()"></modal-modif-sucursal>
+
+	  </form>
+	</div>
+
+	<div id="id04" style="display:none;" class="modal">
+		  
+	  <form class="modal-content animate" >
+
+	      <modal-ofertas sucursalparaofertar='SucursalParaMostrar'></modal-ofertas>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id04').style.display='none'">Cerrar</button> 
+	  </form>
+	</div>
+</div>	
