@@ -156,6 +156,28 @@ salaApp.run(function($rootScope, $state){
   	$state.go('menu');
   }
 
+  $rootScope.IrALocales = function(){
+  	$state.go('locales');
+  }
+
+  $rootScope.IrAPedido = function(){
+  	$state.go('pedidos');
+  }
+
+  $rootScope.IrAInfo = function(){
+  	$state.go('info');
+  }
+
+  $rootScope.IrALogin = function(){
+  	$state.go('usuario.login');
+  }
+
+  $rootScope.IrARegistro = function(){
+  	$state.go('usuario.signin');
+  }
+
+
+
 });
 
 salaApp.controller("MainCtrl", function($scope, UsuarioActual, $rootScope){
@@ -313,6 +335,82 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 		})
 	}	
 
+	$scope.LoginAsAdmin = function(){
+		$scope.user = {
+			email: 'admin@admin.com',
+			clave: '321'
+		};
+		var user = JSON.stringify($scope.user);
+
+		SrvAuth.logear(user)
+		.then(function(respuesta){
+			var u = respuesta.data;
+			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
+
+			$rootScope.$emit('login');
+		})
+		.catch(function(error){
+			console.error(error);
+		})
+	}
+
+	$scope.LoginAsComp = function(){
+		$scope.user = {
+			email: 'comp@comp.com',
+			clave: '123'
+		};
+		var user = JSON.stringify($scope.user);
+
+		SrvAuth.logear(user)
+		.then(function(respuesta){
+			var u = respuesta.data;
+			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
+
+			$rootScope.$emit('login');
+		})
+		.catch(function(error){
+			console.error(error);
+		})
+	}
+
+	$scope.LoginAsVend = function(){
+		$scope.user = {
+			email: 'vend@vend.com',
+			clave: '321'
+		};
+		var user = JSON.stringify($scope.user);
+
+		SrvAuth.logear(user)
+		.then(function(respuesta){
+			var u = respuesta.data;
+			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
+
+			$rootScope.$emit('login');
+		})
+		.catch(function(error){
+			console.error(error);
+		})
+	}
+
+	$scope.LoginAsEnc = function(){
+		$scope.user = {
+			email: 'enc1@encargados.com',
+			clave: '111111'
+		};
+		var user = JSON.stringify($scope.user);
+
+		SrvAuth.logear(user)
+		.then(function(respuesta){
+			var u = respuesta.data;
+			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
+
+			$rootScope.$emit('login');
+		})
+		.catch(function(error){
+			console.error(error);
+		})
+	}
+
 
 	 $scope.authenticate = function(provider) {
       $auth.authenticate(provider);
@@ -349,7 +447,7 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
 
     $scope.MostrarOfertas = function(sucursal){
         $scope.SucursalParaMostrar = sucursal;
-        
+
         document.getElementById('id04').style.display='block';
     };
 
@@ -489,26 +587,11 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
 
     $scope.ListaPedidos = [];
 
-    $scope.ProductoParaMostrar = {
-    	nombre : "NOMBRE",
-    	precio : "123",
-        foto1 : "placeholder1.png",
-        foto2 : "placeholder1.png",
-        foto3 : "placeholder1.png"
-    };
+    $scope.ProductoParaMostrar = {};
 
-    $scope.SucursalParaMostrar = {
-    	nombre : "NOMBRE",
-    	localidad : "LOCALIDAD",
-        foto1 : "placeholder1.png",
-        foto2 : "placeholder1.png",
-        foto3 : "placeholder1.png"
-    };
+    $scope.SucursalParaMostrar = {};
 
-    $scope.ClienteParaMostrar = {
-    	nombre : "NOMBRE",
-    	email: "MAIL"
-    };
+    $scope.ClienteParaMostrar = {};
 
     $scope.PedidoSeleccionado = {};
 
@@ -526,13 +609,7 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
 	    		document.getElementById('id01').style.display='block';
 	    	}).catch(function (error){
 
-	    		$scope.ProductoParaMostrar = {
-			    	nombre : "NOMBRE",
-			    	precio : "123",
-			        foto1 : "placeholder1.png",
-			        foto2 : "placeholder1.png",
-			        foto3 : "placeholder1.png"
-			    };
+	    		$scope.ProductoParaMostrar = {};
 
 	    	})
 
@@ -548,13 +625,7 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
 	    		document.getElementById('id02').style.display='block';
 	    	}).catch(function (error){
 
-	    		$scope.SucursalParaMostrar = {
-			    	nombre : "NOMBRE",
-			    	localidad : "LOCALIDAD",
-			        foto1 : "placeholder1.png",
-			        foto2 : "placeholder1.png",
-			        foto3 : "placeholder1.png"
-			    };
+	    		$scope.SucursalParaMostrar = {};
 
 	    	})
     };
@@ -569,10 +640,7 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
 	    		document.getElementById('id03').style.display='block';
 	    	}).catch(function (error){
 
-			    $scope.ClienteParaMostrar = {
-			    	nombre : "NOMBRE",
-			    	email: "MAIL"
-			    };
+			    $scope.ClienteParaMostrar = {};
 
 	    	})
     };
@@ -591,16 +659,6 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
 
 	    	})
     };
-
-    // $scope.BuscarIdxPedido = function(id){
-    // 	for (var i = $scope.ListaPedidos.length - 1; i >= 0; i--) {
-    // 		if($scope.ListaPedidos[i].idPed == id){
-    // 			return i;
-    // 		}
-    // 	};
-
-    // 	return -1;
-    // };
 
     $scope.RealizarEncuesta = function(pedido){
         $scope.PedidoSeleccionado = pedido;

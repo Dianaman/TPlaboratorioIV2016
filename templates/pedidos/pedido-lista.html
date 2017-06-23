@@ -2,23 +2,21 @@
 <table class="table table-hover table-responsive" width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<th>ID</th>
-		    <th>PRODUCTO</th>
 		    <th>SUCURSAL</th>
 		    <th>CLIENTE</th>
-		    <th>CANTIDAD PEDIDA</th>
 		    <th>FECHA DE PEDIDO</th>
 		    <th>MONTO TOTAL</th>
+		    <th>DETALLE</th>
 		    <th>ESTADO</th>
 		    <th>ACCIÓN</th>
 		</tr>
 		<tr ng-repeat="ped in ListaPedidos">
-			<td>{{ped.idPed}}</td>
-			<td><button class="btn btn-info" ng-click="MostrarProducto(ped.idProd)">VER PRODUCTO</button></td>
-			<td><button class="btn btn-info" ng-click="MostrarSucursal(ped.idSuc)">VER SUCURSAL</button></td>
-			<td><button class="btn btn-info" ng-click="MostrarCliente(ped.idCliente)">VER CLIENTE</button></td>
-			<td>{{ped.cantPedida}}</td>
+			<td>{{ped.id_pedido}}</td>
+			<td><button class="btn btn-info" ng-click="MostrarSucursal(ped.id_sucursal)">VER SUCURSAL</button></td>
+			<td><button class="btn btn-info" ng-click="MostrarCliente(ped.id_cliente)">VER CLIENTE</button></td>
 			<td>{{ped.fechaPedido | date : "dd'/'MM'/'yyyy"}}</td>
 			<td>${{ped.monto}}</td>
+			<td><button class="btn btn-info" ng-click="MostrarDetalle(ped.id_pedido)">VER DETALLE</button></td>
 			<td>{{ped.estado}}</td>
 			<td>
 				<button class="btn btn-info" ng-click="CerrarPedido(ped)" ng-show="(ped.estado == 'Pendiente' && (ped.idCliente == userActual.id || userActual.cargo != 'Cliente') )">CERRAR PEDIDO</button>

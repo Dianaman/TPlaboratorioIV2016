@@ -116,7 +116,7 @@ class Usuario
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE id_usuario=:idUsu");
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE id=:idUsu");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':idUsu', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
@@ -130,7 +130,7 @@ class Usuario
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE id_sucursal=:idSuc");
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE id=:idSuc");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':idSuc', $idSucursal, PDO::PARAM_INT);
 		$consulta->execute();
@@ -177,7 +177,7 @@ class Usuario
 	public static function BorrarUsuario($idParametro)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM misusuarios WHERE id_usuario=:idUsu");
+		$consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM misusuarios WHERE id=:idUsu");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL BorrarPersona(:id)");	
 		$consulta->bindValue(':idUsu',$idParametro, PDO::PARAM_INT);		
 		$consulta->execute();
@@ -196,7 +196,7 @@ class Usuario
 				cargo=:cargo,
 				habilitado=:habilitado,
 				id_sucursal=:idSuc
-				WHERE id_usuario=:idUsu");
+				WHERE id=:idUsu");
 			//$consulta =$objetoAccesoDato->RetornarConsulta("CALL ModificarUsuario(:id,:nombre,:nombre,:email,:clave,:cargo)");
 			$consulta->bindValue(':idUsu',$usuario->idUsu, PDO::PARAM_INT);
 			$consulta->bindValue(':nombre', $usuario->nombre, PDO::PARAM_STR);
