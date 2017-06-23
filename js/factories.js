@@ -2,6 +2,7 @@ angular.module('salaDeJuegosApp')
 .factory('factoryRutas', function (){
 	var objeto = {};
   objeto.nombre = "Factory de rutas";
+  objeto.RutaAuth = 'http://localhost/TPlaboratorioIV2016/ws1/auth/';
   objeto.RutaOfertas = 'http://localhost/TPlaboratorioIV2016/ws1/ofertas/';
   objeto.RutaPedidos = 'http://localhost/TPlaboratorioIV2016/ws1/pedidos/';
   objeto.RutaProductos = 'http://localhost/TPlaboratorioIV2016/ws1/productos/';

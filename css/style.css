@@ -224,3 +224,21 @@ ul.photo-ul li{
     padding:5px;
     text-align: center;
 }
+
+.pizza-box {
+    width:300px;
+    text-align: justify;
+    background-color:white;
+    opacity:0.8;
+    color:black;
+    padding:10px;
+    margin: auto;
+    margin-top:10%;
+}
+
+
+button.btn--small{
+    width:auto;
+    display: inline;
+    margin:0;
+}

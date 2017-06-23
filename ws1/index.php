@@ -32,6 +32,14 @@ $app->get('/', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/auth/{usuario}', function ($request, $response, $args) {
+    $user = json_decode($args['usuario']);
+    $datos = Usuario::LogearUsuario($user);
+    $response->write(json_encode($datos)); 
+    
+    return $response;
+});
+
 $app->get('/ofertas[/]', function ($request, $response, $args) {
     $datos = Oferta::TraerTodasLasOfertas();
     $response->write(json_encode($datos)); 
@@ -239,7 +247,7 @@ $app->delete('/sucursales/{id}', function ($request, $response, $args) {
 });
 
 $app->delete('/usuarios/{id}', function ($request, $response, $args) {
-    Usuario::BorrarUsuario($args['id']);
+    $response = Usuario::BorrarUsuario($args['id']);
     return $response;
 });
 

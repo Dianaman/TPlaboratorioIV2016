@@ -149,7 +149,16 @@ class Sucursal
 	public static function TraerTodasLasSucursales()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM sucursales ");
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			SELECT 
+			s.id_sucursal, 
+			s.nombre as nombre, 
+			s.direccion, 
+			s.encargado, 
+			s.localidad,
+			e.nombre as enombre
+		 FROM sucursales as s , misusuarios as e
+		 WHERE s.encargado = e.id");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
 		$arrSucursales= $consulta->fetchAll(PDO::FETCH_CLASS, "Sucursal");	

@@ -3,7 +3,11 @@
 </head>	
 
 <div class="container">
-    <h1>{{pizza.title}}</h1>
-    <img src="{{pizza.img}}">
-    <p >{{pizza.desc}}</p>
+	<div class="pizza-box">
+	    <h1>{{pizza.nombre}}</h1>
+	    <img class="card-img" src="./img/{{pizza.foto1}}">	
+	    <p>{{pizza.descripcion}}</p>
+	    <label>Cantidad</label>
+	    <input type="number" min="0"/>
+    </div>
 </div>

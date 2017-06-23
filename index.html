@@ -23,10 +23,12 @@
 <body ng-app="salaDeJuegosApp">
 	<div ui-view></div>
 
-	<div id="footer">
+	<div id="footer" ng-controller="MainCtrl">
 		<button ng-click="IrARegistro()" ng-show="!usuario.loggeado">Registro</button>
 		<button ng-click="IrALogin()" ng-show="!usuario.loggeado">Entrar</button>
 		<button ng-click="IrAMenu()">Menu</button>
+		<button ng-click="IrALocales()" ng-show="usuario.loggeado && (usuario.tipo == 'encargado' || usuario.tipo == 'admin')">Sucursales</button>
+		<button ng-click="IrALocales()" ng-show="usuario.loggeado && usuario.tipo == 'admin'">Usuarios</button>
 		<button ng-click="IrAPedido()" ng-show="usuario.loggeado">Pedido</button>
 		<button ng-click="IrAInfo()" iu-sref="contacto">Sobre Nosotros</button>
 

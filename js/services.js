@@ -1,4 +1,21 @@
 angular.module('salaDeJuegosApp')
+
+.service('SrvAuth', function($http, factoryRutas){
+	this.logear = Logear;
+
+	var url = factoryRutas.RutaAuth;
+
+	function Logear(usuario){
+		return $http.get(url + usuario)
+			.then(function(respuesta){
+				return respuesta;
+			})
+			.catch(function(error){
+				console.error(error);
+			})
+	}
+})
+
 .service('SrvUsuarios', function ($http, factoryRutas){
 
 	this.insertarUsuario = InsertarUsuario;

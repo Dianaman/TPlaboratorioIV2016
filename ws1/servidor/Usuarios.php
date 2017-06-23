@@ -116,7 +116,7 @@ class Usuario
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM usuarios WHERE id_usuario=:idUsu");
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE id_usuario=:idUsu");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':idUsu', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
@@ -130,7 +130,7 @@ class Usuario
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM usuarios WHERE id_sucursal=:idSuc");
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE id_sucursal=:idSuc");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':idSuc', $idSucursal, PDO::PARAM_INT);
 		$consulta->execute();
@@ -142,17 +142,17 @@ class Usuario
 	public static function TraerTodosLosUsuarios()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM usuarios ");
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios ");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
-		$arrUsuarios= $consulta->fetchAll(PDO::FETCH_CLASS, "usuario");	
+		$arrUsuarios= $consulta->fetchAll(PDO::FETCH_CLASS, "Usuario");	
 		return $arrUsuarios;
 	}
 
 	public static function AutenticarUsuario($mailUsuario, $nombreUsuario, $claveUsuario)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM usuarios WHERE email=:email AND nombre=:nombre AND clave=:clave");
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE correo=:email AND nombre=:nombre AND clave=:clave");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->bindValue(':email', $mailUsuario, PDO::PARAM_STR);
 		$consulta->bindValue(':nombre', $nombreUsuario, PDO::PARAM_STR);
@@ -161,11 +161,23 @@ class Usuario
 		$usuarioBuscado= $consulta->fetchObject('usuario');
 		return $usuarioBuscado;	
 	}
+
+	public static function LogearUsuario($usuario)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE correo=:email AND clave=:clave");
+		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
+		$consulta->bindValue(':email', $usuario->email, PDO::PARAM_STR);
+		$consulta->bindValue(':clave', $usuario->clave, PDO::PARAM_STR);
+		$consulta->execute();			
+		$usuarioBuscado= $consulta->fetchObject('Usuario');
+		return $usuarioBuscado;
+	}
 	
 	public static function BorrarUsuario($idParametro)
 	{	
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM usuarios WHERE id_usuario=:idUsu");
+		$consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM misusuarios WHERE id_usuario=:idUsu");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL BorrarPersona(:id)");	
 		$consulta->bindValue(':idUsu',$idParametro, PDO::PARAM_INT);		
 		$consulta->execute();
@@ -177,9 +189,9 @@ class Usuario
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
-				UPDATE usuarios 
+				UPDATE misusuarios 
 				SET nombre=:nombre,
-				email=:email,
+				correo=:email,
 				clave=:clave,
 				cargo=:cargo,
 				habilitado=:habilitado,
@@ -204,7 +216,7 @@ class Usuario
 	public static function InsertarUsuario($usuario)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into usuarios (nombre,email,clave,cargo,habilitado,id_sucursal) values(:nombre,:email,:clave,:cargo,:habilitado,:idSuc)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into misusuarios (nombre,correo,clave,cargo,habilitado,id_sucursal) values(:nombre,:email,:clave,:cargo,:habilitado,:idSuc)");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL InsertarUsuario (:nombre,:nombre,:dni,:email,:clave,:cargo,:codFoto)");
 		$consulta->bindValue(':nombre', $usuario->nombre, PDO::PARAM_STR);
 		$consulta->bindValue(':email', $usuario->email, PDO::PARAM_STR);

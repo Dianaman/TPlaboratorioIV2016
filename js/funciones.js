@@ -94,7 +94,7 @@ salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 
 		.state(
 			"menu-pizza", {
-				url: '/menu/:pizza',
+				url: '/menu/:pizzaid',
 				templateUrl: 'templates/menu-pizza.html',
 				controller: 'MenuPizzaCtrl'	
 			})
@@ -149,7 +149,7 @@ salaApp.run(function($rootScope, $state){
   $rootScope.usuario = {
   	nombre: '',
   	tipo: '',
-  	loggeado:true
+  	loggeado:false
   };
 
   $rootScope.IrAMenu = function(){
@@ -158,52 +158,22 @@ salaApp.run(function($rootScope, $state){
 
 });
 
+salaApp.controller("MainCtrl", function($scope, UsuarioActual, $rootScope){
+	$scope.usuario = {};
+
+	$rootScope.$on('login', function(event, data){
+		$scope.usuario.tipo = UsuarioActual.getCargo();
+		if($scope.usuario.tipo != ''){
+			$scope.usuario.loggeado = true;
+
+			console.log($scope.usuario);
+		}
+	});
+	
+});
+
 salaApp.controller("MenuCtrl", function($scope, $state, $http, SrvProductos){
-	$scope.pizzas = [
-		{
-			id: 0001,
-			title: 'Pizza de Muzarella',
-			desc: 'Queso muzzarella, salsa de tomate, oregano y aceitunas',
-			img: 'img/muzzarella.jpg'
-		},
-		{
-			id: 0002,
-			title: 'Pizza Napolitana',
-			desc: 'Queso muzzarella, salsa de tomate, tomates en rodajas, oregano, ajo y aceitunas',
-			img: 'img/napolitana.jpg'
-		},
-		{
-			id: 0003,
-			title: 'Fainá',
-			desc: 'Masa con harina de garbanzos',
-			img: 'img/faina.jpg'
-		}
-	];
-/*
-	$http.get('http://localhost/ws2/pizza').then(function(response){
-		var arrpizzas = [];
-		$scope.pizzas = [];
-		
-		for(var i=0; i< response.data.length; i++)
-		{
-			var title = response.data[i].tipo + ' ' + response.data[i].nombre;
-
-			if(arrpizzas.indexOf(title)<=-1){
-				var pizza = {
-					title: title,
-					nombre: response.data[i].nombre,
-					tipo: response.data[i].tipo,
-					desc: 'asdsadad'
-				}
-				arrpizzas.push(title);
-				$scope.pizzas.push(pizza);
-			}
-		}
-
-
-	}, function errorCallback(response){
-		console.error(response);
-	});*/
+	$scope.pizzas = [];
 
 	SrvProductos.traerTodos().then(function(respuesta){
 		$scope.pizzas = respuesta.data;
@@ -212,23 +182,17 @@ salaApp.controller("MenuCtrl", function($scope, $state, $http, SrvProductos){
 	});
 
 	$scope.selectPizza = function(pizza){
-		var unaPizza = JSON.stringify(pizza);
-		$state.go('menu-pizza', {pizza: unaPizza});
+		$state.go('menu-pizza', {pizzaid: pizza.id});
 	}
 });
 
-salaApp.controller("MenuPizzaCtrl", function($stateParams, $scope, $http){
+salaApp.controller("MenuPizzaCtrl", function($stateParams, $scope, $http, SrvProductos){
 	$scope.pizza;
 	
-	var tipo = JSON.parse($stateParams.pizza);
-	console.log(tipo);
+	console.log($stateParams.pizzaid);
 
-	var param = {
-		tipo: tipo.tipo,
-		nombre: tipo.nombre
-	}
 
-	$http.get('http://localhost/ws2/pizza/tipo/' + JSON.stringify(param)).then(
+	SrvProductos.traerUno($stateParams.pizzaid).then(
 		function(response){
 			console.log(response);
 			$scope.pizza = response.data;
@@ -322,14 +286,6 @@ salaApp.controller("PersonaGrillaCtrl", function($scope, $http, $state){
 			console.info(response);
 		});
 	}
-/*
-	$scope.personas = [
-	{"nombre": "Ramiro",
-	"apellido": "Torres",
-	"email": "ramiro.torres@gmail.com",
-	"edad": 30,
-	"sexo": "masculino"}];
-	*/
 
 	$scope.modificarPersona = function(selectedIndex){
 		var idParam = JSON.stringify(selectedIndex.id);
@@ -337,15 +293,27 @@ salaApp.controller("PersonaGrillaCtrl", function($scope, $http, $state){
 
 	}
 
-	/*$scope.personas = [
-	{"nombre": "Ramiro",
-	"apellido": "Torres",
-	"email": "ramiro.torres@gmail.com",
-	"edad": 30,
-	"sexo": "masculino"}];*/
 });
 
-salaApp.controller("LoginCtrl", function($scope, $auth){
+salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, $rootScope){
+	$scope.usuario = {};
+
+	$scope.enviarDatos = function(){
+		var user = JSON.stringify($scope.usuario);
+
+		SrvAuth.logear(user)
+		.then(function(respuesta){
+			var u = respuesta.data;
+			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
+
+			$rootScope.$emit('login');
+		})
+		.catch(function(error){
+			console.error(error);
+		})
+	}	
+
+
 	 $scope.authenticate = function(provider) {
       $auth.authenticate(provider);
 
@@ -364,13 +332,7 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
 
     $scope.ListaSucursales = [];
 
-    $scope.SucursalParaMostrar = {
-    	nombre : "NOMBRE",
-    	localidad : "LOCALIDAD",
-        foto1 : "placeholder1.png",
-        foto2 : "placeholder1.png",
-        foto3 : "placeholder1.png"
-    };
+    $scope.SucursalParaMostrar = {};
 
     $scope.SucursalParaModificar = {};
 
@@ -387,7 +349,7 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
 
     $scope.MostrarOfertas = function(sucursal){
         $scope.SucursalParaMostrar = sucursal;
-        //console.log("MI SUCURSAL", $scope.SucursalParaMostrar);
+        
         document.getElementById('id04').style.display='block';
     };
 
@@ -449,7 +411,7 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
     	.then(function (respuesta){
 
     		console.info("todas las sucursales", respuesta);
-        $scope.ListaSucursales = respuesta.data;
+        	$scope.ListaSucursales = respuesta.data;
 
     	}).catch(function (error){
 

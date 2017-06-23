@@ -131,7 +131,7 @@ class Pedido
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':idPed', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
-		$pedidoBuscado= $consulta->fetchObject('pedido');
+		$pedidoBuscado= $consulta->fetchObject('Pedido');
 		return $pedidoBuscado;	
 					
 	}
@@ -142,7 +142,7 @@ class Pedido
 		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM pedidos ");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
-		$arrpedidoes= $consulta->fetchAll(PDO::FETCH_CLASS, "pedido");	
+		$arrpedidoes= $consulta->fetchAll(PDO::FETCH_CLASS, "Pedido");	
 		return $arrpedidoes;
 	}
 	
