@@ -1,9 +1,16 @@
-<ng-form class="form-persona" name="FormAltaPersona" nv-file-drop="" uploader="SubidorDeArchivos">
-	<h1>Registrarse</h1>
+<div class="form-usuario" >
+<ng-form name="FormAltaPersona" nv-file-drop="" uploader="SubidorDeArchivos">
+	<h1>{{modo}}</h1>
 
-	<input type="text" name="apellido" ng-model="persona.apellido" placeholder="Ingrese apellido" required/>
 	<input type="text" name="nombre" ng-model="persona.nombre" placeholder="Ingrese nombre" required/>
-	<input type="email" name="email" ng-model="persona.email" placeholder="Ingrese email" required/>
+    <input type="email" name="email" ng-model="persona.email" placeholder="Ingrese email" required/>
+    <input type="password" name="clave" ng-model="persona.clave" placeholder="Ingrese clave" required/>
+    <select name="cargo" ng-model="persona.cargo">
+        <option value="comprador">Cliente</option>
+        <option value="vendedor">Vendedor</option>
+        <option value="encargado">Encargado</option>
+        <option value="admin">Admin</option>
+    </select>
 	<input type="text" name="direccion" ng-model="persona.direccion" placeholder="Ingrese dirección" required/>
 	
     <div ng-show="SubidorDeArchivos.isHTML5" class="photo-container">
@@ -41,4 +48,4 @@
     </div>
 
 	<br><br><button type="submit" name="btnRegistrar" ng-click="enviarDatos()" >Enviar datos</button>
-</form>
+</form></div>

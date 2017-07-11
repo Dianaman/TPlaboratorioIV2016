@@ -12,24 +12,41 @@ a:hover{
     color:black;
 }
 
-.form-persona{
+.button-state {
+    width:90%;
+    margin-left:5%;
+    
+}
+.form-lista{
 	display:block;
-	color:grey;
+	color:white;
 	background-color:black;
     opacity:0.7;
 	border-radius: 25px;padding:20px 5%;
-	margin-bottom:10%;
-    margin-left:50%;
+	margin:3%;
 	font-family:tahoma;
 }
-.form-persona h1, form.form-persona h4 {
-	padding-left: 5%;
+.form-lista h1, form.form-lista h4 {
+	text-align:center;
 }
-.form-persona input[type="text"],
-.form-persona input[type="email"],
-.form-persona input[type="password"],
-.form-persona input[type="number"],
-.form-persona input[type="date"],
+.form-lista th{
+    color:grey;
+}
+.form-usuario{
+    display:block;
+    color:grey;
+    background-color:black;
+    opacity:0.7;
+    border-radius: 25px;padding:20px 5%;
+    margin:5%;
+    margin-left:50%;
+    font-family:tahoma;
+}
+.form-usuario input[type="text"],
+.form-usuario input[type="email"],
+.form-usuario input[type="password"],
+.form-usuario input[type="number"],
+.form-usuario input[type="date"],
 select, button
 {
 	width:90%;
@@ -40,7 +57,7 @@ select, button
 	height: 4rem;
 	padding-left:5px;
 }
-.form-persona button{
+.form-usuario button{
 	text-align: center;
 	background-color:#E60D0D;
 	color:white;
@@ -49,9 +66,8 @@ select, button
 	letter-spacing: 0.5rem;
 }
 
-.form-persona button:hover {
+.form-usuario button:hover {
     opacity: 0.8;
-    color:black;
 }
 
 #footer {

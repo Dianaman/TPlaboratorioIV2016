@@ -1,30 +1,28 @@
-<div class="form-persona">
+<div class="form-lista">
 	<h1>Grilla de personas</h1>
-	<hr>
-	<div class="tabla-col">
-		<b>Nombre</b>
-	</div>
-	<div class="tabla-col">
-		<b>Apellido</b>
-	</div>
-	<div class="tabla-col">
-		<b>Dni</b>
-	</div>
-	<div class="tabla-col">
-		<b>Foto</b>
-	</div>
-	<div class="tabla-col">
-	</div>
-	<div class="tabla-col">
-	</div><hr>
 
-	<div ng-repeat="persona in personas">
-		<div class="tabla-col" ng-bind="persona.nombre"></div>
-		<div class="tabla-col" ng-bind="persona.apellido"></div>
-		<div class="tabla-col" ng-bind="persona.dni"></div>
-		<div class="tabla-col"><!--<img src="{{persona.foto}}">--></div>
-		<div class="tabla-col"><button class="btn-table btn--small" ng-click="modificarPersona(persona)">Modificar</button></div>
-		<div class="tabla-col"><button class="btn-table btn--small" ng-click="borrarPersona(persona)">Borrar</button></div>
-	</div>
+	<table class="table table-hover">
+		<thead>
+			<th>Nombre</th>
+			<th>Email</th>
+			<th>Tipo</th>
+			<th>Sucursal</th>
+			<th></th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="persona in personas">
+				<td ng-bind="persona.nombre"></td>
+				<td ng-bind="persona.correo"></td>
+				<td ng-bind="persona.tipo"></td>
+				<td ng-bind="persona.id_sucursal"></td>
+				<td>
+					<button class="btn btn-warning btn-table btn--small" ng-click="modificarPersona(persona)">Modificar</button>
+					<button class="btn btn-danger btn-table btn--small" ng-click="borrarPersona(persona)">Borrar</button>
+				</td>
+			</tr>			
+		</tbody>
+	</table>
 
 </div>
+	
+<button class="btn btn-info button-state" ng-click="irAgregar()">Agregar personas</button>	

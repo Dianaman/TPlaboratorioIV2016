@@ -201,7 +201,7 @@ class Usuario
 				SET nombre=:nombre,
 				correo=:email,
 				clave=:clave,
-				cargo=:cargo,
+				tipo=:cargo,
 				habilitado=:habilitado,
 				id_sucursal=:idSuc
 				WHERE id=:idUsu");
@@ -224,12 +224,12 @@ class Usuario
 	public static function InsertarUsuario($usuario)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into misusuarios (nombre,correo,clave,cargo,habilitado,id_sucursal) values(:nombre,:email,:clave,:cargo,:habilitado,:idSuc)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into misusuarios (nombre,correo,clave,tipo,habilitado,id_sucursal) values(:nombre,:email,:clave,:tipo,:habilitado,:idSuc)");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL InsertarUsuario (:nombre,:nombre,:dni,:email,:clave,:cargo,:codFoto)");
 		$consulta->bindValue(':nombre', $usuario->nombre, PDO::PARAM_STR);
 		$consulta->bindValue(':email', $usuario->email, PDO::PARAM_STR);
 		$consulta->bindValue(':clave', $usuario->clave, PDO::PARAM_STR);
-		$consulta->bindValue(':cargo', $usuario->cargo, PDO::PARAM_STR);
+		$consulta->bindValue(':tipo', $usuario->cargo, PDO::PARAM_STR);
 		$consulta->bindValue(':habilitado', $usuario->habilitado, PDO::PARAM_INT);
 		$consulta->bindValue(':idSuc', $usuario->idSuc, PDO::PARAM_INT);
 		//$consulta->bindValue(':foto', $usuario->foto, PDO::PARAM_STR);
