@@ -130,7 +130,15 @@ class Usuario
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE id=:idSuc");
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			SELECT 
+			u.nombre, u.correo 
+			FROM 
+			misusuarios as u, 
+			sucursales as s 
+			WHERE 
+			u.id = s.encargado 
+			AND s.id_sucursal=:idSuc");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':idSuc', $idSucursal, PDO::PARAM_INT);
 		$consulta->execute();

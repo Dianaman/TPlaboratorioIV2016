@@ -1,6 +1,8 @@
-angular.module('salaDeJuegosApp', ['angularFileUpload', 'satellizer'])
+angular.module('salaDeJuegosApp')
 
 .directive('modalSucursal', function(){
+
+	//$http.get('https://maps.googleapis.com/maps/api/geocode/json?address='+ )		
 
 	return {
 		scope: {miSucursal: '=sucursalporparametro'},
@@ -11,10 +13,10 @@ angular.module('salaDeJuegosApp', ['angularFileUpload', 'satellizer'])
 
 })
 
-.directive('modalModifSucursal', function(FileUploader, SrvSucursales){
+.directive('modalModifSucursal', function(FileUploader, SrvLocales){
 
 	function modifSucursalCtrl($scope){
-		$scope.SubidorDeArchivos=new FileUploader({url:SrvSucursales.traerUrlFotos()});
+		$scope.SubidorDeArchivos=new FileUploader({url:SrvLocales.traerUrlFotos()});
 			$scope.SubidorDeArchivos.queueLimit = 3;
 
 			$scope.willModifyPhotos = 1;
@@ -73,7 +75,7 @@ angular.module('salaDeJuegosApp', ['angularFileUpload', 'satellizer'])
 
 })
 
-.directive('modalModifOferta', function(FileUploader, SrvSucursales){
+.directive('modalModifOferta', function(FileUploader, SrvLocales){
 
 	function modifOfertaCtrl($scope){
 
@@ -220,4 +222,4 @@ angular.module('salaDeJuegosApp', ['angularFileUpload', 'satellizer'])
 		controller: encuestaCtrl
 	};
 
-});
+})

@@ -8,7 +8,7 @@
 		    <th>Encargado</th>
 		    <th>Descripción</th>
 		    <th>Ofertas</th>
-		    <th ng-show="userActual.cargo == 'Encargado'">Modificar</th>
+		    <th ng-show="userActual.tipo == 'encargado'">Modificar</th>
 		</tr>
 
 		<tr ng-repeat="sucursal in ListaSucursales">
@@ -16,12 +16,12 @@
 			<td>{{sucursal.nombre}}</td>
 			<td>{{sucursal.localidad}}</td>
 			<td>
-				<button class="btn btn-info" ng-click="MostrarEncargado(sucursal.id_sucursal)">{{sucursal.enombre}}</button>
+				<button class="btn btn-danger" ng-click="MostrarEncargado(sucursal.id_sucursal)">{{sucursal.enombre}}</button>
 			</td>
-			<td> <button class="btn btn-info" ng-click="MostrarSucursal(sucursal)" >Ver Descripción</button> </td>
-			<td> <button class="btn btn-info" ng-click="MostrarOfertas(sucursal)" >Ver Ofertas</button> </td>
-			<td ng-show="userActual.cargo == 'Encargado'">
-				 <button class="btn btn-success" ng-click="ModificarSucursal(sucursal)" >Modificar</button>
+			<td> <button class="btn btn-danger" ng-click="MostrarSucursal(sucursal)" >Ver Descripción</button> </td>
+			<td> <button class="btn btn-danger" ng-click="MostrarOfertas(sucursal)" >Ver Ofertas</button> </td>
+			<td ng-show="userActual.tipo == 'encargado'">
+				 <button class="btn btn-danger" ng-click="ModificarSucursal(sucursal)" >Modificar</button>
 			</td>
 		</tr>
 	</table>
@@ -40,8 +40,7 @@
 	<div id="id02" style="display:none;" class="modal">
 	  
 	  <form class="modal-content animate" >
-
-	      <modal-usuario usuarioporparametro='EncargadoParaMostrar'></modal-usuario>
+	      <modal-usuario usuarioporparametro="EncargadoParaMostrar"></modal-usuario>
 
 	      <button class="btn btn-danger" onclick="document.getElementById('id02').style.display='none'">Cerrar</button> 
 

@@ -10,13 +10,7 @@
 
 	<h3>UBICACION: </h3><br>
 	<ng-map center="[{{miSucursal.lat}}, {{miSucursal.lng}}]" style="width:500px;">
-  		<!-- <marker position = "[{{miSucursal.lat}}, {{miSucursal.lng}}]" title="{{miSucursal.nombre}}">
-  		</marker> -->
-  		<directions
-          draggable="true"
-          travel-mode="DRIVING"
-          origin="{{miSucursal.lat}}, {{miSucursal.lng}}"
-          destination="current-location">
-        </directions>
+  		<marker position="[{{miSucursal.lat}}, {{miSucursal.lng}}]" title="{{miSucursal.nombre}}">
+  		</marker>
   	</ng-map>
 </div>

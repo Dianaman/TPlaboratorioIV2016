@@ -1,4 +1,4 @@
-var salaApp = angular.module("salaDeJuegosApp", ['ui.router', 'angularFileUpload', 'satellizer']);
+var salaApp = angular.module("salaDeJuegosApp", ['ui.router', 'angularFileUpload', 'satellizer', 'ngMap']);
 
 salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 	$authProvider.loginUrl = 'SalaDeJuegos/servidor/jwt/php/auth.php';
@@ -518,6 +518,7 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
     	})
 
 });
+
 
 salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioActual,FileUploader,SrvLocales){
 	
