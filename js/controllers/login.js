@@ -20,7 +20,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 	$scope.LoginAsAdmin = function(){
 		$scope.user = {
-			email: 'admin@admin.com',
+			correo: 'admin@admin.com',
 			clave: '321'
 		};
 		var user = JSON.stringify($scope.user);
@@ -39,7 +39,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 	$scope.LoginAsComp = function(){
 		$scope.user = {
-			email: 'comp@comp.com',
+			correo: 'comp@comp.com',
 			clave: '123'
 		};
 		var user = JSON.stringify($scope.user);
@@ -58,7 +58,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 	$scope.LoginAsVend = function(){
 		$scope.user = {
-			email: 'vend@vend.com',
+			correo: 'vend@vend.com',
 			clave: '321'
 		};
 		var user = JSON.stringify($scope.user);
@@ -77,7 +77,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 	$scope.LoginAsEnc = function(){
 		$scope.user = {
-			email: 'enc1@encargados.com',
+			correo: 'enc1@encargados.com',
 			clave: '111111'
 		};
 		var user = JSON.stringify($scope.user);

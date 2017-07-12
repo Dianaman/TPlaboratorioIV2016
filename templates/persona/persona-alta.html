@@ -3,14 +3,18 @@
 	<h1>{{modo}}</h1>
 
 	<input type="text" name="nombre" ng-model="persona.nombre" placeholder="Ingrese nombre" required/>
-    <input type="email" name="email" ng-model="persona.email" placeholder="Ingrese email" required/>
+    <input type="email" name="correo" ng-model="persona.correo" placeholder="Ingrese email" required/>
     <input type="password" name="clave" ng-model="persona.clave" placeholder="Ingrese clave" required/>
-    <select name="cargo" ng-model="persona.cargo">
+    <select name="tipo" ng-model="persona.tipo">
         <option value="comprador">Cliente</option>
         <option value="vendedor">Vendedor</option>
         <option value="encargado">Encargado</option>
         <option value="admin">Admin</option>
     </select>
+    <select name="sucursal" ng-model="persona.id_sucursal">
+        <option ng-repeat="s in sucursales" ng-value="s.id_sucursal">{{s.nombre}}</option>
+    </select>
+    
 	<input type="text" name="direccion" ng-model="persona.direccion" placeholder="Ingrese dirección" required/>
 	
     <div ng-show="SubidorDeArchivos.isHTML5" class="photo-container">

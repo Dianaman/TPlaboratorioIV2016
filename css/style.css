@@ -32,6 +32,9 @@ a:hover{
 .form-lista th{
     color:grey;
 }
+.form-lista tr:hover{
+    color:black;
+}
 .form-usuario{
     display:block;
     color:grey;

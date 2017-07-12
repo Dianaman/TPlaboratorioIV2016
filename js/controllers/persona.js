@@ -1,22 +1,40 @@
 angular.module("salaDeJuegosApp");
 
 
-salaApp.controller("PersonaAltaCtrl", function($scope, $state, FileUploader, SrvUsuarios, $stateParams, $timeout){
+salaApp.controller("PersonaAltaCtrl", function($scope, $state, FileUploader, SrvUsuarios, SrvLocales, $stateParams, $timeout){
 
 	$scope.persona = {
 		nombre: 'Floor Jansen',
-		email: 'floor.jansen@mail.com',
+		correo: 'floor.jansen@mail.com',
 		clave: '123456',
-		cargo: 'comprador',
+		tipo: 'comprador',
 		foto: '',
-		habilitado: true
+		habilitado: true,
+		id_sucursal: 1
 	};
 	
 	$scope.modo = ($stateParams.id ? 'Modificar' : 'Agregar')
 
-	if($stateParams.id){
-		$scope.id = JSON.parse($stateParams.id);
-	}
+	SrvLocales.traerTodas()
+	.then(function(response){
+		$scope.sucursales = response.data;
+		$scope.persona.id_sucursal.value = 1;
+
+		if($stateParams.id){
+			$scope.id = JSON.parse($stateParams.id);
+
+			SrvUsuarios.traerUno($scope.id)
+			.then(function(response){
+				console.info(response.data)
+				$scope.persona = response.data;
+			}, function(error){
+				console.error(error);
+			})
+		}
+	}, function(error){
+		console.error(error)
+	})
+
 
 
 	$scope.SubidorDeArchivos = new FileUploader({url:'servidor/nexo.php'});
@@ -33,14 +51,25 @@ salaApp.controller("PersonaAltaCtrl", function($scope, $state, FileUploader, Srv
 	$scope.enviarDatos = function(){
 		var datost = JSON.stringify($scope.persona);
 
-		SrvUsuarios.insertarUsuario(datost)
-		.then(function(response){
-			console.info(response);
+		if($scope.modo == 'Agregar'){
+			SrvUsuarios.insertarUsuario(datost)
+			.then(function(response){
+				console.info(response);
 
-			$state.go('usuario.login');
-		}, function errorCallback(response){
-			console.info(response);
-		});
+				$state.go('personas');
+			}, function errorCallback(response){
+				console.error(response);
+			});
+		} else {
+			SrvUsuarios.modificarUsuario(datost)
+			.then(function(response){
+				console.info(response);
+
+				$state.go('personas');
+			}, function errorCallback(response){
+				console.error(response);
+			});
+		}
 	}
 
 
@@ -63,10 +92,13 @@ salaApp.controller("PersonaGrillaCtrl", function($scope, SrvUsuarios, $state){
 	$scope.borrarPersona = function(selectedIndex){
 		var dato = JSON.stringify(selectedIndex.id);
 
-		$http.delete('http://localhost/ws1/usuario/'+ dato)
+		SrvUsuarios.borrarUsuario(dato)
 		.then(function(response){
 			console.info(response);
+			console.info($scope.personas);
+			console.info(selectedIndex);
 
+			$scope.personas.splice($scope.personas.indexOf(selectedIndex), 1);
 		}, function errorCallback(response){
 			console.info(response);
 		});
