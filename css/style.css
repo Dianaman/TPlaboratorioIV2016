@@ -50,16 +50,28 @@ a:hover{
 .form-usuario input[type="password"],
 .form-usuario input[type="number"],
 .form-usuario input[type="date"],
-select, button
+textarea, select, button
 {
 	width:90%;
 	margin-left:5%;
 	margin-right:5%;
-	margin-bottom:1.5%;
 	border-radius: 5px;
 	height: 4rem;
 	padding-left:5px;
 }
+textarea{
+    height:8rem;
+}
+.inline-form {
+    margin-left:5%;
+    margin-bottom:1.5%;
+}
+.form-usuario .inline-form select , .form-usuario .inline-form input[type="number"] {
+    margin:auto !important;
+    display:inline !important;
+    width:40% !important;
+}
+
 .form-usuario button{
 	text-align: center;
 	background-color:#E60D0D;
@@ -115,8 +127,8 @@ div.tabla-col{
 }
 
 button[disabled]{
-    background-color:rgba(0,0,0,0.4);
-    color: rgba(0,0,0,0.4);
+    background-color:#AB3333;
+    color: #BEAEAE;
 }
 div.tabla-col{
     text-align: center;
@@ -140,7 +152,6 @@ button.btn-table{
     background-color:white;
     opacity:0.8;
 }
-
 .container {
     background: url('../img/pizza.jpg') no-repeat fixed top left black;
     color:silver;

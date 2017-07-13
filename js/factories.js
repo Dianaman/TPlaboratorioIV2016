@@ -9,6 +9,7 @@ angular.module('salaDeJuegosApp')
   objeto.RutaEncuestas = 'http://localhost/TPlaboratorioIV2016/ws1/encuestas/';
   objeto.RutaSucursales = 'http://localhost/TPlaboratorioIV2016/ws1/sucursales/';
   objeto.RutaUsuarios = 'http://localhost/TPlaboratorioIV2016/ws1/usuarios/';
+  objeto.RutaEncargados = 'http://localhost/TPlaboratorioIV2016/ws1/encargados/';
   objeto.RutaFotos = 'http://localhost/TPlaboratorioIV2016/ws1/servidor/nexoFoto.php';
 
   return objeto;

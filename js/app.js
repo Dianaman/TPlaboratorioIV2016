@@ -76,6 +76,20 @@ salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 			})
 
 		.state(
+			"productos", {
+				url: '/productos',
+				templateUrl: 'templates/productos/producto-lista.html',
+				controller: 'ProductosCtrl'	
+			})
+
+		.state(
+			"producto-alta", {
+				url: '/productos/alta/:id_producto/:id_sucursal',
+				templateUrl: 'templates/productos/producto-alta.html',
+				controller: 'ProductoAltaCtrl'	
+			})
+
+		.state(
 			"locales", {
 				url: '/locales',
 				templateUrl: 'templates/locales/local-lista.html',
@@ -156,6 +170,9 @@ salaApp.run(function($rootScope, $state){
   	$state.go('usuario.signin');
   }
 
+  $rootScope.IrAProductos = function(){
+  	$state.go('productos');
+  }
 
 
 });

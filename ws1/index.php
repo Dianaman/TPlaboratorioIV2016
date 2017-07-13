@@ -68,8 +68,8 @@ $app->get('/productos[/]', function ($request, $response, $args) {
     return $response;
 });
 
-$app->get('/productos/{id}', function ($request, $response, $args) {
-    $datos = Producto::TraerUnProducto($args['id']);
+$app->get('/productos/{prod}/{suc}', function ($request, $response, $args) {
+    $datos = Producto::TraerUnProducto($args['prod'], $args['suc']);
     $response->write(json_encode($datos)); 
     
     return $response;
@@ -86,6 +86,14 @@ $app->get('/sucursales/{id}', function ($request, $response, $args) {
     $datos = Sucursal::TraerUnaSucursal($args['id']);
     $response->write(json_encode($datos)); 
     
+    return $response;
+});
+
+$app->get('/encargados[/]', function ($request, $response, $args) {
+    
+    $datos = Usuario::TraerTodosLosEncargados();
+    $response->write(json_encode($datos));
+
     return $response;
 });
 

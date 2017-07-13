@@ -83,21 +83,25 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
     };
 
     SrvLocales.traerTodas()
-    	.then(function (respuesta){
+	.then(function (respuesta){
 
-    		console.info("todas las sucursales", respuesta);
-        	$scope.ListaSucursales = respuesta.data;
+		console.info("todas las sucursales", respuesta);
+    	$scope.ListaSucursales = respuesta.data;
 
-    	}).catch(function (error){
+	}).catch(function (error){
 
-    		$scope.ListaSucursales = [];
+		$scope.ListaSucursales = [];
 
-    	})
+	});
+
+    $scope.irAgregar = function(){
+        $state.go('local-alta');
+    }
 
 });
 
 
-salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioActual,FileUploader,SrvLocales){
+salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioActual,FileUploader,SrvLocales, SrvUsuarios){
 	
 	$scope.SubidorDeArchivos=new FileUploader({url:SrvLocales.traerUrlFotos()});
   	$scope.SubidorDeArchivos.queueLimit = 3;
@@ -109,6 +113,13 @@ salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioAct
 	$scope.sucursal.foto1 = "sin foto";
 	$scope.sucursal.foto2 = "sin foto";
 	$scope.sucursal.foto3 = "sin foto";
+
+    SrvUsuarios.traerEncargados()
+    .then(function(response){
+        $scope.encargados = response.data;
+    }, function(error){
+        console.error(error)
+    })
 
 
 	$scope.SubidorDeArchivos.onSuccessItem=function(item, response, status, headers)
@@ -155,6 +166,14 @@ salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioAct
 
 		$scope.SubidorDeArchivos.uploadAll();
 
+        var strSuc = JSON.stringify($scope.sucursal);
+        SrvLocales.insertarSucursal(strSuc)
+        .then(function(response){
+            console.info(response);
+            $state.go('locales')
+        }, function(error){
+            console.error(error)
+        })
 	}
 
 });

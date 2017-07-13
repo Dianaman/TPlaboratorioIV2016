@@ -1,32 +1,38 @@
+<div class="form-usuario" >
+  <form id="FormIngreso" name="FormIngreso">
+  <h1>ALTA DE SUCURSALES</h1>
+      
+    <input ng-model="sucursal.nombre" type="text" placeholder="Ingrese nombre de sucursal" name="sucNom" required>
 
-<form class="form-persona" style="margin: 10% 30%" id="FormIngreso" name="FormIngreso">
-<h1>ALTA DE SUCURSALES</h1>
-    
-  <input ng-model="sucursal.nombre" type="text" placeholder="Ingrese nombre de sucursal" name="sucNom" required>
+    <input ng-model="sucursal.direccion" type="text" placeholder="Ingrese dirección del local" name="sucDir" required>
 
-  <input ng-model="sucursal.direccion" type="text" placeholder="Ingrese dirección del local" name="sucDir" required>
+    <input ng-model="sucursal.localidad" type="text" placeholder="Ingrese la localidad" name="sucLoc" required>
 
-  <input ng-model="sucursal.localidad" type="text" placeholder="Ingrese la localidad" name="sucLoc" required>
+    <input ng-model="sucursal.telefono" type="text" placeholder="Ingrese número de teléfono" name="sucTel" required>
 
-  <input ng-model="sucursal.telefono" type="text" placeholder="Ingrese número de teléfono" name="sucTel" required>
+    <select name="encargado" ng-model="sucursal.encargado">
+        <option ng-repeat="e in encargados" ng-value="e.id">{{e.nombre}}</option>
+    </select>
 
-  <label><b>Fotos de la Sucursal:</b></label>
-  <input class="loginText" type="file" nv-file-select uploader="SubidorDeArchivos">
+    <label><b>Fotos de la Sucursal:</b></label>
+    <input class="loginText" type="file" nv-file-select uploader="SubidorDeArchivos">
 
-  <li ng-repeat="item in SubidorDeArchivos.queue" >
-    Archivo: <span ng-bind="item.file.name"></span><br/>
-    <div ng-show="SubidorDeArchivos.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+    <li ng-repeat="item in SubidorDeArchivos.queue" >
+      Archivo: <span ng-bind="item.file.name"></span><br/>
+      <div ng-show="SubidorDeArchivos.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
 
-    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-      <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-    </button>
+      <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+        <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+      </button>
 
-    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
-      <span class="glyphicon glyphicon-trash"></span> Remove
-    </button>
-  </li>  
-    
-  <button class="loginButton" ng-disabled="(FormIngreso.$invalid)" ng-click="Guardar()">Registrar</button>
+      <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+        <span class="glyphicon glyphicon-trash"></span> Remove
+      </button>
+    </li>  
+      
+    <br><br>  
+    <button ng-disabled="(FormIngreso.$invalid)" ng-click="Guardar()">Registrar</button>
 
 
-</form>
+  </form>
+</div>

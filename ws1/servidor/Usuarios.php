@@ -157,6 +157,17 @@ class Usuario
 		return $arrUsuarios;
 	}
 
+	public static function TraerTodosLosEncargados()
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios WHERE tipo = 'encargado'");
+		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
+		$consulta->execute();			
+		$arrUsuarios= $consulta->fetchAll(PDO::FETCH_CLASS, "Usuario");	
+		return $arrUsuarios;
+	}
+
+
 	public static function AutenticarUsuario($mailUsuario, $nombreUsuario, $claveUsuario)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 

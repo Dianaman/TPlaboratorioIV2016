@@ -25,6 +25,7 @@ angular.module('salaDeJuegosApp')
 	this.borrarUsuario = BorrarUsuario;
 	this.modificarUsuario = ModificarUsuario;
 	this.traerUrlFotos = TraerUrlFotos;
+	this.traerEncargados = TraerEncargados;
 
 	var url = factoryRutas.RutaUsuarios;
 
@@ -89,7 +90,14 @@ angular.module('salaDeJuegosApp')
 		return factoryRutas.RutaFotos;
 	};
 
-	
+	function TraerEncargados(){
+		return $http.get(factoryRutas.RutaEncargados)
+			.then(function (respuesta){
+				return respuesta;
+			}).catch(function (error){
+				console.info("error", error);
+			})
+	}
 
 })
 
@@ -332,8 +340,8 @@ angular.module('salaDeJuegosApp')
 			})
 	};
 
-	function TraerUno(id){
-		return $http.get(url+id)
+	function TraerUno(id_producto, id_sucursal){
+		return $http.get(url+id_producto+'/'+id_sucursal)
 			.then(function (respuesta){
 				return respuesta;
 			}).catch(function (error){

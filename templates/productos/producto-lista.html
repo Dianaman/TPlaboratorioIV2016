@@ -1,0 +1,42 @@
+<div class="form-lista">
+	<h1>Productos</h1>
+	<table class="table table-hover table-responsive" width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<th>ID</th>
+			    <th>TIPO</th>
+			    <th>NOMBRE</th>
+			    <th>SUCURSAL</th>
+			    <th>PRECIO</th>
+			    <th></th>
+			    <th></th>
+			    <th></th>
+			</tr>
+			<tr ng-repeat="p in productos">
+				<td>{{p.id}}</td>
+				<td>{{p.tipo}}</td>
+				<td>{{p.nombre}}</td>
+				<td>{{p.snombre}}</td>
+				<td>${{p.precio}}</td>
+				<td><button class="btn btn-info" ng-click="MostrarDetalle(p.id)">VER</button></td>
+				<td><button class="btn btn-warning" ng-click="ModificarProducto(p.id, p.id_sucursal)">EDITAR</button></td>
+				<td><button class="btn btn-danger" ng-click="BorrarProducto(p)">BORRAR</button></td>
+			</tr>
+	</table>
+</div>
+
+<button ng-click="irAgregar()" class="btn btn-info button-state">Agregar productos</button>
+
+
+<!-- MODALS -->
+
+
+<div id="id01" style="display:none;" class="modal">
+	  
+  <form class="modal-content animate" >
+
+      <modal-producto productoporparametro='ProductoParaMostrar'></modal-producto>
+
+      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">CERRAR MODAL</button> 
+
+  </form>
+</div>

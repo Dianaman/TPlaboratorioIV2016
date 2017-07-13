@@ -25,6 +25,7 @@
 	<script src="js/controllers/pedido.js"></script>
 	<script src="js/controllers/oferta.js"></script>
 	<script src="js/controllers/local.js"></script>
+	<script src="js/controllers/producto.js"></script>
 
 
 
@@ -46,6 +47,7 @@
 		<button ng-click="IrALocales()" ng-show="usuario.loggeado && (usuario.tipo == 'encargado' || usuario.tipo == 'admin')">Sucursales</button>
 		<button ng-click="IrAPersonas()" ng-show="usuario.loggeado && usuario.tipo == 'admin'">Usuarios</button>
 		<button ng-click="IrAPedido()" ng-show="usuario.loggeado">Pedido</button>
+		<button ng-click="IrAProductos()" ng-show="usuario.loggeado">Productos</button>
 		<button ng-click="IrAInfo()" iu-sref="contacto">Sobre Nosotros</button>
 	</div>
 </body>
