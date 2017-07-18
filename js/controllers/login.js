@@ -8,6 +8,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 		SrvAuth.logear(user)
 		.then(function(respuesta){
+			console.log(respuesta);
 			var u = respuesta.data;
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
@@ -27,6 +28,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 		SrvAuth.logear(user)
 		.then(function(respuesta){
+			console.log(respuesta);
 			var u = respuesta.data;
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
@@ -46,6 +48,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 		SrvAuth.logear(user)
 		.then(function(respuesta){
+			console.log(respuesta);
 			var u = respuesta.data;
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
@@ -65,6 +68,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 		SrvAuth.logear(user)
 		.then(function(respuesta){
+			console.log(respuesta);
 			var u = respuesta.data;
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
@@ -84,6 +88,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 
 		SrvAuth.logear(user)
 		.then(function(respuesta){
+			console.log(respuesta);
 			var u = respuesta.data;
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 

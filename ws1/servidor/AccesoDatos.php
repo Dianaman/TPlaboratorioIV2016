@@ -21,6 +21,23 @@ class AccesoDatos
     { 
         return $this->objetoPDO->prepare($sql); 
     }
+
+    public function ComenzarTransaccion()
+    {
+        return $this->objetoPDO->beginTransaction();
+    }
+    public function EjecutarTransaccion($sql)
+    {
+        return $this->objetoPDO->exec($sql);
+    }
+    public function GuardarTransaccion(){
+        $this->objetoPDO->commit();
+    }
+    public function RevertirTransaccion(){
+        $this->objetoPDO->rollBack();
+    }
+
+
     
      public function RetornarUltimoIdInsertado()
     { 

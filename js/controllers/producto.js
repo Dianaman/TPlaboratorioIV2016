@@ -15,7 +15,8 @@ salaApp.controller("ProductoAltaCtrl", function($scope, $state, FileUploader, Sr
 		}]
 	};
 	
-	$scope.modo = ($stateParams.id_producto ? 'Modificar' : 'Agregar')
+	$scope.modo = ($stateParams.id_producto != '' ? 'Modificar' : 'Agregar');
+	console.info($scope.producto);
 
 	SrvLocales.traerTodas()
 	.then(function(response){
@@ -57,17 +58,24 @@ salaApp.controller("ProductoAltaCtrl", function($scope, $state, FileUploader, Sr
         console.info('onErrorItem', fileItem, response, status, headers);
     };
 
+    $scope.agregarProductoSucursal = function(){
+    	$scope.producto.productos_sucursal.push({});
+    	console.log($scope.producto);
+    }
+
 	$scope.enviarDatos = function(){
 		var datost = JSON.stringify($scope.producto);
-
+		
+		console.log($scope.producto);
+		
 		if($scope.modo == 'Agregar'){
 			SrvProductos.insertarProducto(datost)
 			.then(function(response){
 				console.info(response);
 
 				$state.go('productos');
-			}, function errorCallback(response){
-				console.error(response);
+			}, function errorCallback(error){
+				console.error(error);
 			});
 		} else {
 			SrvProductos.modificarProducto(datost)
@@ -75,8 +83,8 @@ salaApp.controller("ProductoAltaCtrl", function($scope, $state, FileUploader, Sr
 				console.info(response);
 
 				$state.go('productos');
-			}, function errorCallback(response){
-				console.error(response);
+			}, function errorCallback(error){
+				console.error(error);
 			});
 		}
 	}
@@ -114,7 +122,7 @@ salaApp.controller("ProductosCtrl", function($scope, SrvProductos, $state){
 	}
 
 	$scope.ModificarProducto = function(idProd, idSuc){
-		$state.go('personas-alta', {id_producto:idProd, id_sucursal:idSuc});
+		$state.go('producto-alta', {id_producto:idProd, id_sucursal:idSuc});
 
 	}
 

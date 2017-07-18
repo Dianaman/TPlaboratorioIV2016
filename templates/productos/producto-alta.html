@@ -6,17 +6,19 @@
     <input type="text" name="tipo" ng-model="producto.tipo" placeholder="Ingrese tipo" required/>
     <textarea type="text" name="descripcion" ng-model="producto.descripcion" placeholder="Escriba una descripción..." required></textarea>
     
-    <div ng-for="ps in producto.productos_sucursal" class="inline-form" ng-if="!id_sucursal">
+    <div ng-for="ps in producto.productos_sucursal" class="inline-form" ng-if="modo == 'Agregar'">
         <select name="sucursal" ng-model="ps.id_sucursal">
             <option ng-repeat="s in sucursales" ng-value="s.id_sucursal">{{s.nombre}}</option>
         </select>
         <input type="number" name="precio" min="1" ng-model="ps.precio">
-    </div>
 
-    <button class="btn btn-outline-primary" ng-click="agregarProductoSucursal" ng-if="!id_sucursal">Agregar otro </button>
+    </div>
+    {{producto.productos_sucursal}}
+
+    <button class="btn btn-outline-primary" ng-click="agregarProductoSucursal()" ng-if="modo == 'Agregar'">Agregar otro </button>
     
-    <input type="number" name="precio" min="1" ng-model="producto.precio" ng-if="id_sucursal">    
-    <input type="text" disabled name="sucursal" ng-model="producto.snombre" ng-id="id_sucursal">
+    <input type="number" name="precio" min="1" ng-model="producto.precio" ng-if="modo == 'Modificar'">    
+    <input type="text" disabled name="sucursal" ng-model="producto.snombre" ng-if="modo == 'Modificar'">
 
     
 	

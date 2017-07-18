@@ -1,6 +1,7 @@
 <div style="width:100%;" align=center>
 
-	<h3>Nombre: {{miProducto.nombre}}</h3>
+	<h2>{{(miProducto.tipo + ' de ' + miProducto.nombre) | capitalize}}</h2>
+	<h3>Sucursal: {{miProducto.snombre}}</h3>
 	<h3>Precio: ${{miProducto.precio}}</h3>
 
 	<h3>FOTOS: </h3><br>

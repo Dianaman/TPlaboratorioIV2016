@@ -136,7 +136,7 @@ $app->post('/pedidos/{objeto}', function ($request, $response, $args) {
 });
 
 $app->post('/encuestas/{objeto}', function ($request, $response, $args) {
-    $encuesta = json_decode($args['objeto']);
+    $encuesta = json_decode($args['objeto'], true);
 
     Encuesta::InsertarEncuesta($encuesta);
     
@@ -145,10 +145,10 @@ $app->post('/encuestas/{objeto}', function ($request, $response, $args) {
 
 $app->post('/productos/{objeto}', function ($request, $response, $args) {
     $producto = json_decode($args['objeto']);
-
-    Producto::InsertarProducto($producto);
+    $response = Producto::InsertarProducto($producto);
     
-    $response->write($args['objeto']);
+
+    return $response;
 });
 
 $app->post('/sucursales/{objeto}', function ($request, $response, $args) {
