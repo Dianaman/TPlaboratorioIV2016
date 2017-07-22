@@ -126,8 +126,14 @@ salaApp.controller("ProductosCtrl", function($scope, SrvProductos, $state){
 
 	}
 
-	$scope.MostrarDetalle = function(selectedId){
-        $scope.ProductoParaMostrar = selectedId;
+	$scope.MostrarDetalle = function(producto){
+        $scope.ProductoParaMostrar = producto;
+
+        $scope.FotosSucursal = [
+            'img/'+producto.foto1,
+            'img/'+producto.foto2,
+            'img/'+producto.foto3
+        ]
         document.getElementById('id01').style.display='block';
 	}
 

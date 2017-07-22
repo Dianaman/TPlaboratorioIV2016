@@ -159,6 +159,9 @@ class Sucursal
 			s.telefono,
 			s.lat,
 			s.lng,
+			s.foto1,
+			s.foto2,
+			s.foto3,
 			e.nombre as enombre
 		 FROM sucursales as s , misusuarios as e
 		 WHERE s.encargado = e.id");

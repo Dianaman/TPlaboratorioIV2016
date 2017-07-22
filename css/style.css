@@ -287,13 +287,32 @@ ul.photo-ul li{
     margin-top:10%;
 }
 
-
+.modal {
+}
 button.btn--small{
     width:auto;
     display: inline;
     margin:0;
 }
-.modal-content {
+.modal-content, .modal {
     background-color: black;
-    opacity:0.9;
+    height:90vh;
+}
+
+form.modal-content{
+    overflow-y: auto;
+}
+form.modal-content button{
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+
+.box {
+    display: table-cell;
+}
+.box-izquieda {
+    float: left;
+}
+.box-izquieda {
+    float: right;
 }

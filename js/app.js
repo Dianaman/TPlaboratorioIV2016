@@ -1,4 +1,4 @@
-var salaApp = angular.module("salaDeJuegosApp", ['ui.router', 'angularFileUpload', 'satellizer', 'ngMap']);
+var salaApp = angular.module("salaDeJuegosApp", ['ui.router', 'angularFileUpload', 'satellizer', 'ngMap', 'ui.carousel']);
 
 salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 	$authProvider.loginUrl = 'SalaDeJuegos/servidor/jwt/php/auth.php';

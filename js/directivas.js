@@ -5,7 +5,8 @@ angular.module('salaDeJuegosApp')
 	//$http.get('https://maps.googleapis.com/maps/api/geocode/json?address='+ )		
 
 	return {
-		scope: {miSucursal: '=sucursalporparametro'},
+		scope: {miSucursal: '=sucursalporparametro',
+		fotosSucursal: '=fotosSucursal'},
 		replace: true,
 		restrict: 'E',
 		templateUrl: 'templates/directivas/templateModalSucursal.html'

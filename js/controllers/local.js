@@ -1,6 +1,6 @@
 angular.module("salaDeJuegosApp");
 
-salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales, SrvUsuarios){
+salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales, SrvUsuarios, NgMap){
 
 	$scope.titulo = "Listado de Sucursales";
 
@@ -18,8 +18,21 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
 
     $scope.MostrarSucursal = function(sucursal){
         $scope.SucursalParaMostrar = sucursal;
+        $scope.FotosSucursal = [
+            'img/'+sucursal.foto1,
+            'img/'+sucursal.foto2,
+            'img/'+sucursal.foto3
+        ]
         console.log("MI SUCURSAL", $scope.SucursalParaMostrar);
         document.getElementById('id01').style.display='block';
+
+        
+        console.log(NgMap)
+        NgMap.getMap("sucursalmap").then(function(res){
+            // Initialize the Google map
+            NgMap.initMap("sucursalmap");
+            console.log(NgMap.getMap("sucursalmap"))
+        });
     };
 
     $scope.MostrarOfertas = function(sucursal){
@@ -122,51 +135,27 @@ salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioAct
     })
 
 
-	$scope.SubidorDeArchivos.onSuccessItem=function(item, response, status, headers)
-	  {
-		console.info("Ya guardé el archivo.", item, response, status, headers);
-	  };
 
-	  $scope.SubidorDeArchivos.onCompleteAll =function()
-	  {
-		var suc = JSON.stringify($scope.sucursal);
+    $scope.SubidorDeArchivos.onCompleteAll =function()
+    {
+        var fotos = $scope.SubidorDeArchivos.queue;
 
-		console.info("suc", $scope.sucursal);
+	    console.info("fotos", fotos);
+    
+        $scope.sucursal.foto1 = fotos[0] ? fotos[0].file.name : '';
+        $scope.sucursal.foto2 = fotos[1] ? fotos[1].file.name : '';
+        $scope.sucursal.foto3 = fotos[2] ? fotos[2].file.name : '';
 
-	  	SrvLocales.insertarSucursal(suc)
-			.then(function (respuesta){
 
-				console.info("respuesta", respuesta);
-
-				$state.go('local-alta');
-
-			}).catch(function (error){
-				console.info("error", error);
-			})
-	  };
+        $scope.Guardar();
+    };
 
 	$scope.Guardar = function(){
 
-		console.log($scope.SubidorDeArchivos.queue);
-		if($scope.SubidorDeArchivos.queue[0]!=undefined)
-		{
-			var nombreFoto = $scope.SubidorDeArchivos.queue[0]._file.name;
-			$scope.sucursal.foto1=nombreFoto;
-		}
-		if($scope.SubidorDeArchivos.queue[1]!=undefined)
-		{
-			var nombreFoto = $scope.SubidorDeArchivos.queue[1]._file.name;
-			$scope.sucursal.foto2=nombreFoto;
-		}
-		if($scope.SubidorDeArchivos.queue[2]!=undefined)
-		{
-			var nombreFoto = $scope.SubidorDeArchivos.queue[2]._file.name;
-			$scope.sucursal.foto3=nombreFoto;
-		}
-
-		$scope.SubidorDeArchivos.uploadAll();
+        console.info('sucursal', $scope.sucursal);
 
         var strSuc = JSON.stringify($scope.sucursal);
+
         SrvLocales.insertarSucursal(strSuc)
         .then(function(response){
             console.info(response);

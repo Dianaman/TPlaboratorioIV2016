@@ -27,11 +27,13 @@
 	</table>
 
 
+<button class="btn btn-info button-state" ng-click="irAgregar()">Agregar sucursal</button>
+
 	<div id="id01" style="display:none;" class="modal">
 	  
 	  <form class="modal-content animate" >
 
-	      <modal-sucursal sucursalporparametro='SucursalParaMostrar'></modal-sucursal>
+	      <modal-sucursal sucursalporparametro='SucursalParaMostrar' fotos-sucursal="FotosSucursal"></modal-sucursal>
 
 	      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">Cerrar</button> 
 
@@ -67,5 +69,3 @@
 	  </form>
 	</div>
 </div>	
-
-<button class="btn btn-info button-state" ng-click="irAgregar()">Agregar sucursal</button>
