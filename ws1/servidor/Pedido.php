@@ -127,11 +127,54 @@ class Pedido
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM pedidos WHERE id_pedido=:idPed");
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			SELECT 
+				p.id_pedido, 
+				p.id_sucursal,
+				p.id_cliente,
+				p.fechaPedido,
+				p.estado,
+				s.nombre as snombre,
+				u.nombre as unombre,
+				dp.cantidad,
+				dp.id_producto,
+				pr.nombre as pnombre
+			FROM 
+				pedidos as p, 
+				misproductos as pr,
+				sucursales as s,
+				misusuarios as u,
+				detalle_pedido as dp 
+			WHERE p.id_pedido= :idPed AND
+            	p.id_pedido = dp.id_pedido AND
+                p.id_sucursal = s.id_sucursal AND
+                p.id_cliente = u.id AND
+                dp.id_producto = pr.id");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':idPed', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
-		$pedidoBuscado= $consulta->fetchObject('Pedido');
+		$detalles = $consulta->fetchAll();
+
+		$pedidoBuscado =  new stdClass();
+		$pedidoBuscado->id_pedido = $detalles[0]['id_pedido'];
+		$pedidoBuscado->id_sucursal = $detalles[0]['id_sucursal'];
+		$pedidoBuscado->id_cliente = $detalles[0]['id_cliente'];
+		$pedidoBuscado->fechaPedido = $detalles[0]['fechaPedido'];
+		$pedidoBuscado->estado = $detalles[0]['estado'];
+		$pedidoBuscado->snombre = $detalles[0]['snombre'];
+		$pedidoBuscado->unombre = $detalles[0]['unombre'];
+		$pedidoBuscado->productos = array();
+		
+		foreach($detalles as $d){
+			$producto = new stdClass();
+			$producto->id = $d['id_producto'];
+			$producto->nombre = $d['pnombre'];
+			$producto->cantidad = $d['cantidad'];
+
+			array_push($pedidoBuscado->productos, $d);
+		}
+
+
 		return $pedidoBuscado;	
 					
 	}

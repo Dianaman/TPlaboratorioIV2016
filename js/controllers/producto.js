@@ -49,20 +49,27 @@ salaApp.controller("ProductoAltaCtrl", function($scope, $state, FileUploader, Sr
 
 	$scope.SubidorDeArchivos = new FileUploader({url:'servidor/nexo.php'});
 
-    $scope.SubidorDeArchivos.onSuccessItem = function(fileItem, response, status, headers) {
-        console.info('onSuccessItem', fileItem, response, status, headers);
-        $scope.persona.foto = fileItem;
-    };
-	
-	$scope.SubidorDeArchivos.onErrorItem = function(fileItem, response, status, headers) {
-        console.info('onErrorItem', fileItem, response, status, headers);
-    };
+   var fotos = $scope.SubidorDeArchivos.queue;
 
+    console.info("fotos", fotos);
+
+    $scope.producto.foto1 = fotos[0] ? fotos[0].file.name : '';
+    $scope.producto.foto2 = fotos[1] ? fotos[1].file.name : '';
+    $scope.producto.foto3 = fotos[2] ? fotos[2].file.name : '';
+
+ 
     $scope.agregarProductoSucursal = function(){
     	$scope.producto.productos_sucursal.push({});
     	console.log($scope.producto);
     }
 
+	$scope.SubidorDeArchivos.onCompleteAll = function() {
+        
+
+
+        $scope.enviarDatos();
+    };
+	
 	$scope.enviarDatos = function(){
 		var datost = JSON.stringify($scope.producto);
 		
@@ -129,11 +136,12 @@ salaApp.controller("ProductosCtrl", function($scope, SrvProductos, $state){
 	$scope.MostrarDetalle = function(producto){
         $scope.ProductoParaMostrar = producto;
 
-        $scope.FotosSucursal = [
-            'img/'+producto.foto1,
-            'img/'+producto.foto2,
-            'img/'+producto.foto3
-        ]
+        $scope.FotosProducto = [];
+
+		if(producto.foto1) $scope.FotosProducto.push(producto.foto1);
+		if(producto.foto2) $scope.FotosProducto.push(producto.foto2);
+		if(producto.foto3) $scope.FotosProducto.push(producto.foto3);
+
         document.getElementById('id01').style.display='block';
 	}
 

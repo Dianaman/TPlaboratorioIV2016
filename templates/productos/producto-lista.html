@@ -22,21 +22,24 @@
 				<td><button class="btn btn-danger" ng-click="BorrarProducto(p)">BORRAR</button></td>
 			</tr>
 	</table>
+
+	<button ng-click="irAgregar()" class="btn btn-info button-state">Agregar productos</button>
+
+
+	<!-- MODALS -->
+
+
+	<div id="id01" style="display:none;" class="modal">
+		  
+	  <form class="modal-content animate" >
+
+	      <modal-producto productoporparametro='ProductoParaMostrar' fotos-producto="FotosProducto"></modal-producto>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">CERRAR MODAL</button> 
+
+	  </form>
+	</div>
+
+
 </div>
 
-<button ng-click="irAgregar()" class="btn btn-info button-state">Agregar productos</button>
-
-
-<!-- MODALS -->
-
-
-<div id="id01" style="display:none;" class="modal">
-	  
-  <form class="modal-content animate" >
-
-      <modal-producto productoporparametro='ProductoParaMostrar' fotos-producto="FotosProducto"></modal-producto>
-
-      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">CERRAR MODAL</button> 
-
-  </form>
-</div>

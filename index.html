@@ -42,11 +42,16 @@
 
 </head>
 <body ng-app="salaDeJuegosApp">
+	<div id="head" ng-controller="MainCtrl">
+		<img ng-show="usuario.loggeado" src="{{usuario.foto}}">
+		<button ng-click="IrARegistro()" ng-show="!usuario.loggeado">Registro</button>
+		<button ng-click="IrALogin()" ng-show="!usuario.loggeado">Entrar</button>
+		<button ng-click="Salir()" ng-show="usuario.loggeado">Salir</button>
+	</div>
+
 	<div ui-view class="container"></div>
 
 	<div id="footer" ng-controller="MainCtrl">
-		<button ng-click="IrARegistro()" ng-show="!usuario.loggeado">Registro</button>
-		<button ng-click="IrALogin()" ng-show="!usuario.loggeado">Entrar</button>
 		<button ng-click="IrAMenu()">Menu</button>
 		<button ng-click="IrALocales()" ng-show="usuario.loggeado && (usuario.tipo == 'encargado' || usuario.tipo == 'admin')">Sucursales</button>
 		<button ng-click="IrAPersonas()" ng-show="usuario.loggeado && usuario.tipo == 'admin'">Usuarios</button>

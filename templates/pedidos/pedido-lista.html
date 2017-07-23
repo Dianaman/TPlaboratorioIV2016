@@ -17,7 +17,7 @@
 				<td><button class="btn btn-danger" ng-click="MostrarCliente(ped.id_cliente)">VER CLIENTE</button></td>
 				<td>{{ped.fechaPedido | date : "dd'/'MM'/'yyyy"}}</td>
 				<td>${{ped.monto}}</td>
-				<td><button class="btn btn-danger" ng-click="MostrarDetalle(ped.id_pedido)">VER DETALLE</button></td>
+				<td><button class="btn btn-danger" ng-click="MostrarDetalle(ped)">VER DETALLE</button></td>
 				<td>{{ped.estado}}</td>
 				<td>
 					<button class="btn btn-danger" ng-click="CerrarPedido(ped)" ng-show="(ped.estado == 'Pendiente' && (ped.idCliente == userActual.id || userActual.cargo != 'Cliente') )">CERRAR PEDIDO</button>
@@ -26,60 +26,73 @@
 				</td>
 			</tr>
 	</table>
-</div>
 
 
-<!-- MODALS -->
+	<!-- MODALS -->
 
 
-<div id="id01" style="display:none;" class="modal">
-	  
-  <form class="modal-content animate" >
-
-      <modal-producto productoporparametro='ProductoParaMostrar'></modal-producto>
-
-      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">CERRAR MODAL</button> 
-
-  </form>
-</div>
-
-<div id="id02" style="display:none;" class="modal">
-	  
-  <form class="modal-content animate" >
-
-      <modal-sucursal sucursalporparametro='SucursalParaMostrar'></modal-sucursal>
-
-      <button class="btn btn-danger" onclick="document.getElementById('id02').style.display='none'">CERRAR MODAL</button> 
-
-  </form>
-  
-</div>
-
-<div id="id03" style="display:none;" class="modal">
-	  
-  <form class="modal-content animate" >
-
-      <modal-usuario usuarioporparametro='ClienteParaMostrar'></modal-usuario>
-
-      <button class="btn btn-danger" onclick="document.getElementById('id03').style.display='none'">CERRAR MODAL</button> 
-
-  </form>
-</div>
-
-<div id="id04" style="display:none;" class="modal">
-	  
-  <form class="modal-content animate" >
-      <modal-encuesta pedidoporparametro='PedidoSeleccionado' registerparent="RegistrarEncuesta(encuesta)"></modal-encuesta>
-
-      <button class="btn btn-danger" onclick="document.getElementById('id04').style.display='none'">CERRAR MODAL</button> 
-
-  </form>
-</div>
-
-<div id="id05" style="display:none;" class="modal">
-	  
+	<div id="id01" style="display:none;" class="modal">
+		  
 	  <form class="modal-content animate" >
 
-	      <modal-modif-pedido pedidoporparametro='PedidoParaModificar' modifparent='RealizarModificacion()' cancelmodif="CancelarModificacion()"></modal-modif-pedido>
+	      <modal-producto productoporparametro='ProductoParaMostrar' fotos-producto="FotosProducto"></modal-producto>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">CERRAR MODAL</button> 
+
 	  </form>
+	</div>
+
+	<div id="id02" style="display:none;" class="modal">
+		  
+	  <form class="modal-content animate" >
+
+	      <modal-sucursal sucursalporparametro='SucursalParaMostrar' fotos-sucursal="FotosSucursal"></modal-sucursal>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id02').style.display='none'">CERRAR MODAL</button> 
+
+	  </form>
+	  
+	</div>
+
+	<div id="id03" style="display:none;" class="modal">
+		  
+	  <form class="modal-content animate" >
+
+	      <modal-usuario usuarioporparametro='ClienteParaMostrar'></modal-usuario>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id03').style.display='none'">CERRAR MODAL</button> 
+
+	  </form>
+	</div>
+
+	<div id="id04" style="display:none;" class="modal">
+		  
+	  <form class="modal-content animate" >
+	      <modal-encuesta pedidoporparametro='PedidoSeleccionado' registerparent="RegistrarEncuesta(encuesta)"></modal-encuesta>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id04').style.display='none'">CERRAR MODAL</button> 
+
+	  </form>
+	</div>
+
+	<div id="id05" style="display:none;" class="modal">
+		  
+		  <form class="modal-content animate" >
+
+		      <modal-modif-pedido pedidoporparametro='PedidoParaModificar' modifparent='RealizarModificacion()' cancelmodif="CancelarModificacion()"></modal-modif-pedido>
+		  </form>
+	</div>
+
+	<div id="id06" style="display:none;" class="modal">
+		  
+		  <form class="modal-content animate" >
+
+		      <modal-pedido pedidoporparametro='PedidoParaMostrar'></modal-pedido>
+
+
+		      <button class="btn btn-danger" onclick="document.getElementById('id06').style.display='none'">Cerrar</button> 
+		  </form>
+	</div>
+
 </div>
+

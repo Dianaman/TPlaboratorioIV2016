@@ -1,6 +1,6 @@
 angular.module("salaDeJuegosApp");
 
-salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, $rootScope){
+salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, $rootScope, $state){
 	$scope.usuario = {};
 
 	$scope.enviarDatos = function(){
@@ -13,6 +13,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
 			$rootScope.$emit('login');
+			$state.go('menu');
 		})
 		.catch(function(error){
 			console.error(error);
@@ -33,6 +34,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
 			$rootScope.$emit('login');
+			$state.go('locales');
 		})
 		.catch(function(error){
 			console.error(error);
@@ -53,6 +55,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
 			$rootScope.$emit('login');
+			$state.go('ofertas');
 		})
 		.catch(function(error){
 			console.error(error);
@@ -73,6 +76,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
 			$rootScope.$emit('login');
+			$state.go('pedidos');
 		})
 		.catch(function(error){
 			console.error(error);
@@ -93,6 +97,7 @@ salaApp.controller("LoginCtrl", function($scope, $auth, SrvAuth, UsuarioActual, 
 			UsuarioActual.login(u.id, u.nombre, u.correo, u.tipo);
 
 			$rootScope.$emit('login');
+			$state.go('productos');
 		})
 		.catch(function(error){
 			console.error(error);

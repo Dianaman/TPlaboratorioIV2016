@@ -96,7 +96,7 @@ angular.module('salaDeJuegosApp')
 
 })
 
-.directive('modalModifPedido', function(FileUploader, SrvPedidoes){
+.directive('modalModifPedido', function(FileUploader, SrvPedidos){
 
 	function modifPedidoCtrl($scope){
 
@@ -181,7 +181,8 @@ angular.module('salaDeJuegosApp')
 .directive('modalProducto', function(){
 
 	return {
-		scope: {miProducto: '=productoporparametro'},
+		scope: {miProducto: '=productoporparametro',
+		fotosProducto: '=fotosProducto'},
 		replace: true,
 		restrict: 'E',
 		templateUrl: 'templates/directivas/templateModalProducto.html'
@@ -200,6 +201,16 @@ angular.module('salaDeJuegosApp')
 
 })
 
+.directive('modalPedido', function(){
+
+	return {
+		scope: {miPedido: '=pedidoporparametro'},
+		replace: true,
+		restrict: 'E',
+		templateUrl: 'templates/directivas/templateModalPedido.html'
+	};
+
+})
 .directive('modalEncuesta', function(){
 
 	function encuestaCtrl($scope){

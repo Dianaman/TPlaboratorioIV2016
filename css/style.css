@@ -23,7 +23,7 @@ a:hover{
 	background-color:black;
     opacity:0.7;
 	border-radius: 25px;padding:20px 5%;
-	margin:3%;
+	margin:50px;
 	font-family:tahoma;
 }
 .form-lista h1, form.form-lista h4 {
@@ -85,6 +85,36 @@ textarea{
     opacity: 0.8;
 }
 
+#head {
+    background-color:black;
+    height: 50px;
+    width:100%;
+    top:0px;
+    position:fixed;
+
+}
+#head img {
+    width: 40px;
+    height:40px;
+    margin:5px;
+}
+#head button{
+    display: inline-block;
+    float:right;
+    background-color: black;
+    color:white;
+    opacity: 0.5;
+    border-radius: 0px;
+    border:0px;
+    width:100px;
+    height:40px;
+    margin:5px;
+}
+#head button:hover{
+    background-color: white;
+    color:black;
+}
+
 #footer {
     display:inline;
     background-color: black;
@@ -106,6 +136,10 @@ textarea{
 #footer button:hover{
     background-color: white;
     color:black;
+}
+
+.pizzas {
+    text-align: center;
 }
 
 div.tercio{
@@ -157,6 +191,7 @@ button.btn-table{
     color:silver;
     width:100%;
     height:100vh;
+    padding:5px;
     overflow:scroll;
 
 }
@@ -287,8 +322,7 @@ ul.photo-ul li{
     margin-top:10%;
 }
 
-.modal {
-}
+
 button.btn--small{
     width:auto;
     display: inline;
@@ -296,7 +330,7 @@ button.btn--small{
 }
 .modal-content, .modal {
     background-color: black;
-    height:90vh;
+    height:95vh;
 }
 
 form.modal-content{
@@ -310,9 +344,18 @@ form.modal-content button{
 .box {
     display: table-cell;
 }
-.box-izquieda {
+.box-izquierda {
     float: left;
+    text-align: left;
+    width: 300px;
 }
-.box-izquieda {
+.box-derecha {
     float: right;
+}
+.inline-table td, .multi-items td, .multi-items th{
+    padding-left: 50px;
+}
+.inline-table, .multi-items {
+    border-spacing: 2px;
+    text-align: center
 }

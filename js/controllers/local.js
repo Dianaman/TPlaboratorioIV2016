@@ -18,11 +18,12 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
 
     $scope.MostrarSucursal = function(sucursal){
         $scope.SucursalParaMostrar = sucursal;
-        $scope.FotosSucursal = [
-            'img/'+sucursal.foto1,
-            'img/'+sucursal.foto2,
-            'img/'+sucursal.foto3
-        ]
+
+        $scope.FotosSucursal = [];
+        if(sucursal.foto1) $scope.FotosSucursal.push(sucursal.foto1);
+        if(sucursal.foto2) $scope.FotosSucursal.push(sucursal.foto2);
+        if(sucursal.foto3) $scope.FotosSucursal.push(sucursal.foto3);
+
         console.log("MI SUCURSAL", $scope.SucursalParaMostrar);
         document.getElementById('id01').style.display='block';
 

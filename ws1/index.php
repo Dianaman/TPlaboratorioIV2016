@@ -54,6 +54,13 @@ $app->get('/pedidos[/]', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/pedidos/{id}', function ($request, $response, $args) {
+    $datos = Pedido::TraerUnPedido($args['id']);
+    $response->write(json_encode($datos)); 
+    
+    return $response;
+});
+
 $app->get('/encuestas[/]', function ($request, $response, $args) {
     $datos = Encuesta::TraerTodasLasEncuestas();
     $response->write(json_encode($datos)); 

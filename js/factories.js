@@ -44,6 +44,11 @@ angular.module('salaDeJuegosApp')
       jsonUsuario.cargo = cargo;
 
       return JSON.stringify(jsonUsuario);
+    },logout:function(){
+      id = "";
+      nombre = "";
+      email = "";
+      cargo = ""
     }
   };
 }])

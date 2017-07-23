@@ -1,0 +1,43 @@
+<div style="width:100%;" align=center>
+
+	<h4>PEDIDO {{miPedido.id_pedido}}</h4>
+  <table class="inline-table">
+    <tr>
+      <th>Cliente</th>
+      <td>{{miPedido.id_cliente}} : {{miPedido.unombre}}</td>
+    </tr>
+    <tr>
+      <th>Sucursal</th>
+      <td>{{miPedido.id_sucursal}} : {{miPedido.snombre}}</td>
+    </tr>
+    <tr>
+      <th>Estado</th>
+      <td>{{miPedido.estado}}</td>
+    </tr>
+  </table>
+
+  <table class="multi-items">
+    <h1>Detalle</h1>
+    <thead>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Cantidad</th>
+      <th>Monto</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="p in miPedido.productos">
+        <td>{{p.id_producto}}</td>
+        <td>{{p.pnombre}}</td>
+        <td>{{p.cantidad}}</td>
+        <td>{{p.monto}}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{miPedido.monto}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>

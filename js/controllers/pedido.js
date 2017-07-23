@@ -18,12 +18,29 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
 
     $scope.EncuestaRegistrada = {};
 
+    $scope.MostrarDetalle = function(pedido){
+
+        SrvPedidos.traerUno(pedido.id_pedido)
+        .then(function(rta){
+            console.info(rta.data)
+            $scope.PedidoParaMostrar = rta.data;  
+            document.getElementById('id06').style.display='block';  
+        }).catch(function(error){
+            console.error(error);
+        })
+    }
+
     $scope.MostrarProducto = function(idProducto){
         console.log("MI Producto ANTES", $scope.ProductoParaMostrar);
         SrvProductos.traerUno(idProducto)
         	.then(function (respuesta){
 	    		console.info("producto encontrado", respuesta);
 		        $scope.ProductoParaMostrar = respuesta.data;
+                $scope.FotosProducto = [];
+                if(respuesta.data.foto1) $scope.FotosProducto.push(respuesta.data.foto1);
+                if(respuesta.data.foto2) $scope.FotosProducto.push(respuesta.data.foto2);
+                if(respuesta.data.foto3) $scope.FotosProducto.push(respuesta.data.foto3);
+
 	        	console.log("MI Producto DESPUES", $scope.ProductoParaMostrar);
 	    		document.getElementById('id01').style.display='block';
 	    	}).catch(function (error){
@@ -40,6 +57,12 @@ salaApp.controller('PedidosCtrl', function($scope, $state, $timeout, UsuarioActu
         	.then(function (respuesta){
 	    		console.info("sucursal encontrada", respuesta);
 		        $scope.SucursalParaMostrar = respuesta.data;
+                $scope.FotosSucursal = [];
+                if(respuesta.data.foto1) $scope.FotosSucursal.push(respuesta.data.foto1);
+                if(respuesta.data.foto2) $scope.FotosSucursal.push(respuesta.data.foto2);
+                if(respuesta.data.foto3) $scope.FotosSucursal.push(respuesta.data.foto3);
+
+
 	        	console.log("MI SUCURSAL DESPUES", $scope.SucursalParaMostrar);
 	    		document.getElementById('id02').style.display='block';
 	    	}).catch(function (error){
