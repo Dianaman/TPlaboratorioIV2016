@@ -26,6 +26,7 @@ angular.module('salaDeJuegosApp')
 	this.modificarUsuario = ModificarUsuario;
 	this.traerUrlFotos = TraerUrlFotos;
 	this.traerEncargados = TraerEncargados;
+	this.modificarEstadoEncuesta = ModificarEstadoEncuesta;
 
 	var url = factoryRutas.RutaUsuarios;
 
@@ -99,6 +100,14 @@ angular.module('salaDeJuegosApp')
 			})
 	}
 
+	function ModificarEstadoEncuesta(idUsuario, estado){
+		return $http.put('http://localhost/TPlaboratorioIV2016/ws1/estadoEncuesta/'+idUsuario+'/'+estado)
+			.then(function (respuesta){
+				return respuesta;
+			}).catch(function (error){
+				console.info("error", error);
+			})
+	}
 })
 
 .service('SrvLocales', function ($http, factoryRutas){
@@ -171,6 +180,7 @@ angular.module('salaDeJuegosApp')
 	this.traerUno = TraerUno;
 	this.borrarPedido = BorrarPedido;
 	this.modificarPedido = ModificarPedido;
+	this.verPedidosPorMes = VerPedidosPorMes;
 
 	var url = factoryRutas.RutaPedidos;
 
@@ -214,11 +224,20 @@ angular.module('salaDeJuegosApp')
 	function BorrarPedido(id){
 		return $http.delete(url + id)
 			.then(function (respuesta){
-				console.log(respuesta);
+				return respuesta;
 			}).catch(function (error){
 				console.log(error);
 			})
 	};
+
+	function VerPedidosPorMes(){
+		return $http.get('http://localhost/TPlaboratorioIV2016/ws1/pedidospormes')
+			.then(function(respuesta){
+				return respuesta;
+			}).catch(function(error){
+				console.error(error);
+			})
+	}
 })
 
 .service('SrvOfertas', function ($http, factoryRutas){
@@ -226,6 +245,7 @@ angular.module('salaDeJuegosApp')
 	this.insertarOferta = InsertarOferta;
 	this.modificarOferta = ModificarOferta;
 	this.traerTodas = TraerTodas;
+	this.traerUna = TraerUna;
 	this.borrarOferta = BorrarOferta;
 
 	var url = factoryRutas.RutaOfertas;
@@ -257,6 +277,15 @@ angular.module('salaDeJuegosApp')
 			})
 	};
 
+	function TraerUna(id){
+		return $http.get(url + id)
+			.then(function (respuesta){
+				return respuesta;
+			}).catch(function (error){
+				console.info("error", error);
+			})
+	};
+
 	function BorrarOferta(id){
 		return $http.delete(url + id)
 			.then(function (respuesta){
@@ -272,7 +301,7 @@ angular.module('salaDeJuegosApp')
 	this.insertarEncuesta = InsertarEncuesta;
 	this.traerTodas = TraerTodas;
 	this.borrarEncuesta = BorrarEncuesta;
-	this.traerUrlFotos = TraerUrlFotos;
+	this.traerUna = TraerUna;
 
 	var url = factoryRutas.RutaEncuestas;
 
@@ -294,6 +323,15 @@ angular.module('salaDeJuegosApp')
 			})
 	};
 
+	function TraerUna(usuario){
+		return $http.get(url + usuario)
+			.then(function (respuesta){
+				return respuesta;
+			}).catch(function (error){
+				console.info("error", error);
+			})
+	};
+
 	function BorrarEncuesta(id){
 		return $http.delete(url + id)
 			.then(function (respuesta){
@@ -303,9 +341,6 @@ angular.module('salaDeJuegosApp')
 			})
 	};
 
-	function TraerUrlFotos(){
-		return factoryRutas.RutaFotos;
-	};
 
 	
 

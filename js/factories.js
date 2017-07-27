@@ -21,13 +21,23 @@ angular.module('salaDeJuegosApp')
   var nombre = "";
   var email = "";
   var cargo = "";
+  var direccion = "";
+  var localidad = "";
+  var telefono = "";
+  var estadoencuesta = "";
 
   return {
-    login:function(userId,name,mail,job){
-      id = userId;
-      nombre = name;
-      email = mail;
-      cargo = job;
+    login:function(user){
+      id = user.id;
+      nombre = user.nombre;
+      email = user.correo;
+      cargo = user.tipo;
+      sucursal = user.id_sucursal;  
+      direccion = user.direccion;
+      localidad = user.localidad;
+      telefono = user.telefono;
+      estadoencuesta = user.estadoencuesta;
+
     },getId:function(){
       return id;
     },getName:function(){
@@ -36,6 +46,8 @@ angular.module('salaDeJuegosApp')
       return email;
     },getCargo:function(){
       return cargo;
+    },getEstadoEncuesta:function(){
+      return estadoencuesta;
     },getFullData:function(){
       var jsonUsuario = {};
       jsonUsuario.id = id;

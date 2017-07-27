@@ -97,11 +97,36 @@ class Oferta
 
 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM ofertas WHERE id_oferta=:idOfer");
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			SELECT
+				id_oferta,
+				o.id_producto,
+				o.id_sucursal,
+				tipo_descuento,
+				fechaFin,
+				p.nombre as nombre,
+				p.descripcion,
+				s.nombre as snombre,
+				ps.precio,
+				p.foto1,
+				p.foto2,
+				p.foto3
+			FROM 
+				ofertas as o,
+				misproductos as p,
+				sucursales as s,
+				producto_sucursal as ps
+			WHERE
+				p.id = o.id_producto AND
+				s.id_sucursal = o.id_sucursal AND 
+				o.id_sucursal = ps.id_sucursal AND
+				o.id_producto = ps.id_producto AND
+				id_oferta = :idOfer");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerUnaPersona(:id)");
 		$consulta->bindValue(':idOfer', $idParametro, PDO::PARAM_INT);
 		$consulta->execute();
-		$ofertaBuscada= $consulta->fetchObject('oferta');
+		$ofertaBuscada = $consulta->fetchAll();
+
 		return $ofertaBuscada;	
 					
 	}
@@ -109,7 +134,29 @@ class Oferta
 	public static function TraerTodasLasOfertas()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM ofertas ");
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			SELECT 
+				id_oferta,
+				o.id_producto,
+				o.id_sucursal,
+				tipo_descuento,
+				fechaFin,
+				p.nombre as nombre,
+				p.descripcion,
+				s.nombre as snombre,
+				ps.precio,
+				p.foto1
+			FROM 
+				ofertas as o,
+				misproductos as p,
+				sucursales as s,
+				producto_sucursal as ps
+			WHERE
+				p.id = o.id_producto AND
+				s.id_sucursal = o.id_sucursal AND 
+				o.id_sucursal = ps.id_sucursal AND
+				o.id_producto = ps.id_producto AND
+				fechaFin >= CURDATE()");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
 		$arrOfertas= $consulta->fetchAll(PDO::FETCH_CLASS, "oferta");	
@@ -122,8 +169,8 @@ class Oferta
 		$consulta =$objetoAccesoDato->RetornarConsulta("DELETE FROM ofertas WHERE id_oferta=:idOfer");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL BorrarPersona(:id)");	
 		$consulta->bindValue(':idOfer',$idParametro, PDO::PARAM_INT);		
-		$consulta->execute();
-		return $consulta->rowCount();
+		$rta = $consulta->execute();
+		return $rta;
 		
 	}
 	
@@ -134,14 +181,14 @@ class Oferta
 				UPDATE ofertas 
 				SET id_producto=:idProd,
 				id_sucursal=:idSuc,
-				fecha_fin=:fechaFin,
-				descuento=:descuento
+				fechaFin=:fechaFin,
+				tipo_descuento=:descuento
 				WHERE id_oferta=:idOfer");
-			$consulta->bindValue(':idOfer',$oferta->idOfer, PDO::PARAM_INT);
-			$consulta->bindValue(':idProd', $oferta->idProd, PDO::PARAM_INT);
-			$consulta->bindValue(':idSuc', $oferta->idSuc, PDO::PARAM_INT);
+			$consulta->bindValue(':idOfer',$oferta->id_oferta, PDO::PARAM_INT);
+			$consulta->bindValue(':idProd', $oferta->id_producto, PDO::PARAM_INT);
+			$consulta->bindValue(':idSuc', $oferta->id_sucursal, PDO::PARAM_INT);
 			$consulta->bindValue(':fechaFin', $oferta->fechaFin, PDO::PARAM_STR);
-			$consulta->bindValue(':descuento', $oferta->descuento, PDO::PARAM_INT);
+			$consulta->bindValue(':descuento', $oferta->tipo_descuento, PDO::PARAM_INT);
 			return $consulta->execute();
 	}
 
@@ -152,7 +199,7 @@ class Oferta
 	public static function InsertarOferta($oferta)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into ofertas (id_producto,id_sucursal,fecha_fin,descuento) values(:idProd,:idSuc,:fechaFin,:descuento)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into ofertas (id_producto,id_sucursal,fechaFin,tipo_descuento) values(:idProd,:idSuc,:fechaFin,:descuento)");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL Insertaroferta (:nombre,:nombre,:dni,:foto1,:foto1,:foto1,:codFoto1");
 		$consulta->bindValue(':idProd', $oferta->idProd, PDO::PARAM_INT);
 		$consulta->bindValue(':idSuc', $oferta->idSuc, PDO::PARAM_INT);

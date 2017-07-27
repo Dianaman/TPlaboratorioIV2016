@@ -5,6 +5,7 @@ salaApp.controller("MainCtrl", function($scope, UsuarioActual, $rootScope, $stat
 
 	$rootScope.$on('login', function(event, data){
 		$scope.usuario.tipo = UsuarioActual.getCargo();
+		$scope.usuario.estadoencuesta = UsuarioActual.getEstadoEncuesta();
 		if($scope.usuario.tipo != '' && $scope.usuario.tipo != undefined){
 			$scope.usuario.loggeado = true;
 
@@ -29,5 +30,4 @@ salaApp.controller("MainCtrl", function($scope, UsuarioActual, $rootScope, $stat
 		$state.go('usuario.login');
 	}
 });
-
 

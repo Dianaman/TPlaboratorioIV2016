@@ -1,15 +1,17 @@
-<h3>Alta de ofertas</h3>
+<div class="form-usuario">
+<h3>Oferta</h3>
 <form class="formContainer" id="FormIngreso" name="FormIngreso">
 
-    
-  <label><b>Producto Ofertado ({{ofer.idProd}})</b></label>
-  <select class="formSelect" ng-model="ofer.idProd"  required>
-      <option ng-repeat="prod in ListaProductos" value="{{prod.idProd}}">{{prod.idProd}}  {{prod.nombre}}</option>  
+
+  <label><b>Sucursal</b></label>
+  <select class="formSelect" ng-model="ofer.id_sucursal" ng-change="traerProductos()" name="oferSucursal"  required
+      ng-options="suc as suc.sucursal for suc in ListaSucursales track by suc.id">
   </select>
 
-  <label><b>Sucursal de Origen</b></label>
-  <select class="formSelect" ng-model="ofer.idSuc"  required>
-      <option ng-repeat="suc in ListaSucursales" value="{{suc.idSuc}}">{{suc.idSuc}}  {{suc.nombre}}</option>  
+    
+  <label><b>Producto</b></label>
+  <select class="formSelect" data-ng-model="ofer.id_producto" name="oferProducto" required
+      ng-options="prod as prod.nombre for prod in ListaProductos track by prod.id">
   </select>
 
   <label><b>Fecha de Fin de Oferta</b></label>
@@ -18,9 +20,15 @@
   <span style="color:#FF0000;float:right;font-size:18;margin-left:200" ng-show='(!FormIngreso.oferFechaFin.$error.required && fechaInvalida)'>* La fecha ingresada no esta dentro del rango admitido.</span>
 
   <label><b>Porcentaje de Descuento %</b></label>
- <input class="loginText" ng-model="ofer.descuento" type="number" min='1' max="99" placeholder='0' name="oferDescuento" required>
+ <input class="loginText" ng-model="ofer.tipo_descuento" type="number" min='1' max="99" placeholder='0' name="oferDescuento" required>
     
-  <button class="loginButton" ng-disabled="(FormIngreso.$invalid || fechaInvalida)" ng-click="Guardar()">Registrar</button>
+    {{ofer}}
+    {{FormIngreso.oferFechaFin.$error}}
+    {{FormIngreso.oferDescuento.$error}}
+    {{FormIngreso.oferProducto.$error}}
+    {{FormIngreso.oferSucursal.$error}}
+  <button class="loginButton" ng-disabled="(FormIngreso.$invalid || fechaInvalida)" ng-click="Guardar()">{{modo}}</button>
 
 
 </form>
+</div>

@@ -1,0 +1,31 @@
+<div class="form-usuario" >
+<ng-form name="FormAltaPersona" nv-file-drop="" uploader="SubidorDeArchivos">
+	<h1>{{modo}}</h1>
+
+	<input type="text" name="nombre" ng-model="persona.nombre" placeholder="Ingrese nombre" required/>
+    <input type="email" name="correo" ng-model="persona.correo" placeholder="Ingrese email" required/>
+    <input type="password" name="clave" ng-model="persona.clave" placeholder="Ingrese clave" required/>
+    <select name="tipo" ng-model="persona.tipo" ng-if="!nuevocliente">
+        <option value="comprador">Cliente</option>
+        <option value="vendedor">Vendedor</option>
+        <option value="encargado">Encargado</option>
+        <option value="admin">Admin</option>
+    </select>
+    <select name="sucursal" ng-model="persona.id_sucursal">
+        <option ng-repeat="s in sucursales" ng-value="s.id_sucursal">{{s.nombre}}</option>
+    </select>
+    
+    <input type="text" name="direccion" ng-model="persona.direccion" placeholder="Ingrese dirección" required/>
+    <input type="text" name="localidad" ng-model="persona.localidad" placeholder="Ingrese localidad" required/>
+    <input type="number" name="telefono" ng-model="persona.telefono" placeholder="Ingrese teléfono" required/>
+	
+    <input class="loginText" type="file" nv-file-select uploader="SubidorDeArchivos" queueLimit="1">
+
+    <li ng-repeat="item in SubidorDeArchivos.queue" >
+      Archivo: <span ng-bind="item.file.name"></span><br/>
+      <div ng-show="SubidorDeArchivos.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+    </li>  
+      
+
+	<br><br><button type="submit" name="btnRegistrar" ng-click="SubidorDeArchivos.uploadAll()" >Enviar datos</button>
+</form></div>

@@ -150,7 +150,16 @@ class Usuario
 	public static function TraerTodosLosUsuarios()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM misusuarios ");
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			SELECT 
+				id, correo, nombre, tipo, misusuarios.id_sucursal, foto, estadoencuesta, 
+				(SELECT COUNT(pedidos.id_pedido) 
+				FROM pedidos WHERE pedidos.id_cliente = misusuarios.id 
+				GROUP BY pedidos.id_cliente) as pedidosRealizados, 
+				(SELECT COUNT(encuestas.id_encuesta)  
+				FROM encuestas WHERE encuestas.id_usuario = misusuarios.id 
+				GROUP BY encuestas.id_usuario) as encuestasRealizadas
+				FROM misusuarios");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
 		$arrUsuarios= $consulta->fetchAll(PDO::FETCH_CLASS, "Usuario");	
@@ -249,6 +258,21 @@ class Usuario
 	
 				
 	}	
+
+	public static function ModificarEstadoEncuesta($usuarioId, $estado)
+	{
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			UPDATE misusuarios
+			SET estadoencuesta = :estado
+			WHERE id = :idUsu
+			");
+		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL InsertarUsuario (:nombre,:nombre,:dni,:correo,:clave,:tipo,:codFoto)");
+		$consulta->bindValue(':idUsu', $usuarioId, PDO::PARAM_INT);
+		$consulta->bindValue(':estado', $estado, PDO::PARAM_STR);
+		$consulta->execute();		
+		return $objetoAccesoDato->RetornarUltimoIdInsertado();
+	}
 //--------------------------------------------------------------------------------//
 
 

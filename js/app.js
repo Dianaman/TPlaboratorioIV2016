@@ -1,4 +1,4 @@
-var salaApp = angular.module("salaDeJuegosApp", ['ui.router', 'angularFileUpload', 'satellizer', 'ngMap', 'ui.carousel']);
+var salaApp = angular.module("salaDeJuegosApp", ['ui.router', 'angularFileUpload', 'satellizer', 'ngMap', 'ui.carousel', 'chart.js']);
 
 salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 	$authProvider.loginUrl = 'SalaDeJuegos/servidor/jwt/php/auth.php';
@@ -19,19 +19,6 @@ salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 
 
 	$stateProvider
-		.state(
-			"personas", {
-				url: '/personas',
-				templateUrl: 'templates/persona/persona-grilla.html',
-				controller: 'PersonaGrillaCtrl'
-			})
-		.state(
-			"personas-alta", {
-				cache:false,
-				url: '/personas/alta/:id',
-				templateUrl: 'templates/persona/persona-alta.html',
-				controller: 'PersonaAltaCtrl'
-			})
 		.state(
 			"usuario", {
 				url: '/usuario',
@@ -62,17 +49,64 @@ salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 			})
 
 		.state(
+			"usuario.grilla", {
+				url: '/grilla',
+				views:{
+					"content":{
+						templateUrl: 'templates/usuario/usuarios.html',
+						controller: 'UsuarioGrillaCtrl'
+					}
+				}
+			})
+		.state(
+			"usuario.alta", {
+				cache:false,
+				url: '/alta/:id',
+				views:{
+					"content":{
+						templateUrl: 'templates/usuario/usuario-alta.html',
+						controller: 'UsuarioAltaCtrl'
+					}
+				}
+			})
+		.state(
 			"menu", {
 				url: '/menu',
-				templateUrl: 'templates/menu.html',
+				abstract: true,
+				templateUrl: 'templates/menu/menu.html',
 				controller: 'MenuCtrl'	
+			})
+		.state(
+			"menu.todos", {
+				url: '/todos',
+				views:{
+					"content":{
+						templateUrl: 'templates/menu/menu-todos.html',
+						controller: 'MenuTodosCtrl'	
+					}
+				}
 			})
 
 		.state(
-			"menu-pizza", {
-				url: '/menu/:pizzaid',
-				templateUrl: 'templates/menu-pizza.html',
-				controller: 'MenuPizzaCtrl'	
+			"menu.producto", {
+				url: '/ver/:productoid/:sucursalid',
+				views:{
+					"content":{
+						templateUrl: 'templates/menu/menu-pizza.html',
+						controller: 'MenuPizzaCtrl'	
+					}
+				}
+			})
+
+		.state(
+			"menu.oferta", {
+				url: '/ver/:ofertaid',
+				views:{
+					"content":{
+						templateUrl: 'templates/menu/menu-pizza.html',
+						controller: 'MenuPizzaCtrl'	
+					}
+				}
 			})
 
 		.state(
@@ -126,11 +160,24 @@ salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 
 		.state(
 			"oferta-alta", {
-				url: '/ofertas/alta',
+				url: '/ofertas/alta/:id',
 				templateUrl: 'templates/ofertas/oferta-alta.html',
 				controller: 'OfertaAltaCtrl'	
 			})
 
+		.state(
+			"estadisticas", {
+				url: '/estadisticas',
+				templateUrl: 'templates/estadisticas.html',
+				controller: 'EstadisticasCtrl'	
+			})
+
+		.state(
+			"encuesta", {
+				url: '/encuesta',
+				templateUrl: 'templates/encuesta.html',
+				controller: 'EstadisticasCtrl'	
+			})
 		$urlRouterProvider.otherwise("/persona/menu");
 		
 });
@@ -142,8 +189,20 @@ salaApp.run(function($rootScope, $state){
   	loggeado:false
   };
 
+  $rootScope.pedido = {
+  	productos: []
+  };
+
   $rootScope.IrAMenu = function(){
-  	$state.go('menu');
+  	$state.go('menu.todos');
+  }
+
+  $rootScope.IrAOfertas = function(){
+  	$state.go('ofertas');
+  }
+
+  $rootScope.IrAProductos = function(){
+  	$state.go('productos');
   }
 
   $rootScope.IrALocales = function(){
@@ -154,12 +213,16 @@ salaApp.run(function($rootScope, $state){
   	$state.go('pedidos');
   }
 
-  $rootScope.IrAPersonas = function(){
-  	$state.go('personas');
+  $rootScope.IrAEncuesta = function(){
+  	$state.go('encuesta');
   }
 
   $rootScope.IrAInfo = function(){
   	$state.go('info');
+  }
+
+  $rootScope.IrAUsuarios = function(){
+  	$state.go('usuario.grilla');
   }
 
   $rootScope.IrALogin = function(){
@@ -167,11 +230,7 @@ salaApp.run(function($rootScope, $state){
   }
 
   $rootScope.IrARegistro = function(){
-  	$state.go('usuario.signin');
-  }
-
-  $rootScope.IrAProductos = function(){
-  	$state.go('productos');
+  	$state.go('usuario.alta');
   }
 
 

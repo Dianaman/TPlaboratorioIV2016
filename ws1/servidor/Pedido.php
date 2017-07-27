@@ -248,5 +248,20 @@ class Pedido
 	}	
 //--------------------------------------------------------------------------------//
 
+	public static function VerPedidosPorMes(){
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			SELECT 
+				Count(p.id_pedido) as cantidad,
+				MONTH(p.fechaPedido) as mes, 
+				s.nombre,
+				SUM(p.monto) as monto
+			FROM pedidos as p, sucursales as s
+			WHERE p.id_sucursal = s.id_sucursal AND
+				p.fechaPedido > date_sub(now(), interval 12 MONTH) 
+			GROUP BY MONTH(p.fechaPedido), s.nombre");
 
+		$consulta->execute();
+		return $consulta->fetchAll();
+	}
 }

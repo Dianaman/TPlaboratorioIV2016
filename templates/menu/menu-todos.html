@@ -1,0 +1,35 @@
+<head>
+	<meta charset="UTF-8">
+</head>	
+
+<div class="menu form-pizzas inline">
+    <h1>Menu</h1><br>
+    <div class="filters">
+    <select ng-change="filtrarPorSucursal()" ng-options="suc as suc.nombre for suc in ListaSucursales track by suc.id_sucursal" ng-model="sucursal" name="sucursal">
+    </select>
+    <select ng-change="filtrarPorTipo()" ng-model="tipo" name="tipo">
+    	<option value="" selected>Todos los productos</option>
+    	<option value="oferta">Ofertas</option>
+    	<option value="producto">Los de siempre</option>
+    </select>
+    </div>
+
+    <div class="listcard" ng-repeat="pizza in pizzas">
+        <div class="card" ng-click="selectPizza(pizza)">
+        	<div ng-if="!pizza.id_oferta">
+	            <p class="card-title">{{pizza.nombre | capitalize}}</p>
+	            <img class="card-img" src="./img/{{pizza.foto1}}">
+	            <p class="card-desc">{{pizza.descripcion | capitalize}}</p>
+	            <p class="card-desc">${{pizza.precio}}</p>
+            </div>
+            <div ng-if="pizza.id_oferta">
+	            <p class="card-title">{{pizza.nombre | capitalize}}</p>
+	            <p class="card-img-note" style="background-image: url({{'img/'+pizza.foto1}})">					{{pizza.tipo_descuento}}%
+	            </p>
+	            <p class="card-desc">{{pizza.descripcion}}</p>
+	            <p class="card-desc">${{pizza.precio - (pizza.precio * pizza.tipo_descuento / 100) }}</p>
+
+            </div>
+        </div>
+    </div>
+</div>

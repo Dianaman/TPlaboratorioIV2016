@@ -26,43 +26,29 @@
 		</tr>
 	</table>
 
-
-<button class="btn btn-info button-state" ng-click="irAgregar()">Agregar sucursal</button>
-
+	<button class="btn btn-info button-state" ng-click="irAgregar()">Agregar sucursal</button>
+	
+	<!-- MODALS -->
 	<div id="id01" style="display:none;" class="modal">
-	  
-	  <form class="modal-content animate" >
-
+ 	  <form class="modal-content animate" >
 	      <modal-sucursal sucursalporparametro='SucursalParaMostrar' fotos-sucursal="FotosSucursal"></modal-sucursal>
 
 	      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">Cerrar</button> 
-
 	  </form>
 	</div>
 
+
 	<div id="id02" style="display:none;" class="modal">
-	  
-	  <form class="modal-content animate" >
+  	  <form class="modal-content animate" >
 	      <modal-usuario usuarioporparametro="EncargadoParaMostrar"></modal-usuario>
 
 	      <button class="btn btn-danger" onclick="document.getElementById('id02').style.display='none'">Cerrar</button> 
-
 	  </form>
 	</div>
 
-	<div id="id03" style="display:none;" class="modal">
-	  
-	  <form class="modal-content animate" >
-
-	      <modal-modif-sucursal sucursalporparametro='SucursalParaModificar' modifparent='RealizarModificacion()' cancelmodif="CancelarModificacion()"></modal-modif-sucursal>
-
-	  </form>
-	</div>
 
 	<div id="id04" style="display:none;" class="modal">
-		  
-	  <form class="modal-content animate" >
-
+  	  <form class="modal-content animate" >
 	      <modal-ofertas sucursalparaofertar='SucursalParaMostrar'></modal-ofertas>
 
 	      <button class="btn btn-danger" onclick="document.getElementById('id04').style.display='none'">Cerrar</button> 

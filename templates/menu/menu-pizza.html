@@ -1,0 +1,19 @@
+
+<div class="menu form-pizzas">
+	<div class="pizza-box">
+	    <h1>{{pizza.nombre | capitalize}}</h1>
+
+    	<ui-carousel slides="fotosProducto" slides-to-show="1" slides-to-scroll="1" autoplay="true" autoplay-speed="4000">
+			<carousel-item>
+	    		<div class="image"><img src="img/{{ item }}" width="250px;"></div>
+	  		</carousel-item>
+		</ui-carousel>	
+	    <p>{{pizza.descripcion | capitalize}}</p>
+	    <p class="pizza-important">${{pizza.precio}}</p>
+	    <label>Cantidad</label>
+	    <input type="number" min="0" ng-change="calcularMonto()" ng-model="pizza.cantidad" min="0"/>
+	    <p class="pizza-important">${{pizza.total}}</p>
+
+	    <button class="btn btn-success btn-block" ng-click="agregarProducto()" ng-disabled="pizza.cantidad <= 0">Agregar a la compra</button>
+    </div>
+</div>

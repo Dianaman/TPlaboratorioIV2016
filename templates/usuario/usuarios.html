@@ -1,0 +1,47 @@
+<div class="form-lista">
+	<h1>Grilla de personas</h1>
+
+	<table class="table table-hover">
+		<thead>
+			<th>Id</th>
+			<th>Nombre</th>
+			<th>Email</th>
+			<th>Tipo</th>
+			<th>Sucursal</th>
+			<th>Pedidos</th>
+			<th>Encuesta</th>
+			<th></th>
+		</thead>
+		<tbody>
+			<tr ng-repeat="persona in personas">
+				<td ng-bind="persona.id"></td>
+				<td ng-bind="persona.nombre"></td>
+				<td ng-bind="persona.correo"></td>
+				<td ng-bind="persona.tipo"></td>
+				<td ng-bind="persona.id_sucursal"></td>
+				<td ng-bind="persona.pedidosRealizados"></td>
+				<td>
+					<button class="btn btn-success btn-table btn--small" ng-click="enviarEncuesta(persona)" ng-if="persona.estadoencuesta == 'disponible'">Enviar encuesta</button>
+					<button class="btn btn-info btn-table btn--small" ng-click="verEncuesta(persona)"  ng-if="persona.estadoencuesta == 'realizada'">Ver Encuesta</button>
+				<td>
+					<button class="btn btn-warning btn-table btn--small" ng-click="modificarPersona(persona)">Modificar</button>
+					<button class="btn btn-danger btn-table btn--small" ng-click="borrarPersona(persona)">Borrar</button>
+				</td>
+			</tr>			
+		</tbody>
+	</table>
+
+	<button class="btn btn-info button-state" ng-click="irAgregar()">Agregar personas</button>	
+
+
+	<div id="id01" style="display:none;" class="modal">
+	  <form class="modal-content animate" >
+	      <modal-encuesta usuarioporparametro='UsuarioParaMostrar' encuestaporparametro='EncuestaParaMostrar'></modal-encuesta>
+
+	      <button class="btn btn-danger" onclick="document.getElementById('id01').style.display='none'">
+	      	CERRAR MODAL
+	      </button> 
+	  </form>
+	</div>
+</div>
+	

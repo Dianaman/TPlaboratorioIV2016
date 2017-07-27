@@ -50,7 +50,10 @@ a:hover{
 .form-usuario input[type="password"],
 .form-usuario input[type="number"],
 .form-usuario input[type="date"],
-textarea, select, button
+.form-usuario label,
+.form-usuario textarea, .form-lista textarea,
+.form-usuario select, .form-lista select,
+.form-usuario button, .form-lista button
 {
 	width:90%;
 	margin-left:5%;
@@ -59,8 +62,11 @@ textarea, select, button
 	height: 4rem;
 	padding-left:5px;
 }
-textarea{
+.form-usuario textarea{
     height:8rem;
+}
+.form-usuario label{
+    display: inline;
 }
 .inline-form {
     margin-left:5%;
@@ -83,6 +89,10 @@ textarea{
 
 .form-usuario button:hover {
     opacity: 0.8;
+}
+
+.btn-submit {
+    margin-top: 20px;
 }
 
 #head {
@@ -130,16 +140,15 @@ textarea{
     opacity: 0.5;
     border-radius: 0px;
     border:0px;
-    width:20%;
+    min-width:10%;
+    max-width: 30%;
+    display: inline-block;
     margin:0%;
+    height:40px;
 }
 #footer button:hover{
     background-color: white;
     color:black;
-}
-
-.pizzas {
-    text-align: center;
 }
 
 div.tercio{
@@ -212,9 +221,19 @@ button.btn-table{
     padding: 10px;
 }
 
-.card-img {
+.card-img, .card-img-note img {
     width: 250px;
     height:250px;
+}
+.card-img-note{  
+    line-height: 460px;  
+    width: 250px;
+    height:250px;
+    vertical-align: bottom;
+    text-align:right;
+    font-size:50px;
+    font-weight: bold;
+    color:red;
 }
 
 .card-title {
@@ -312,14 +331,19 @@ ul.photo-ul li{
 }
 
 .pizza-box {
-    width:300px;
+    width:600px;
     text-align: justify;
     background-color:white;
     opacity:0.8;
     color:black;
     padding:10px;
-    margin: auto;
-    margin-top:10%;
+    margin-left:auto;
+    margin-right: auto;
+    text-align: center;
+}
+.pizza-important {
+    font-size: 16px;
+    font-weight: bold;
 }
 
 
@@ -358,4 +382,60 @@ form.modal-content button{
 .inline-table, .multi-items {
     border-spacing: 2px;
     text-align: center
+}
+
+.menu {
+    display:inline-flex;
+    height:500px;
+    background-color:black;
+    color:white;
+    opacity:0.7;
+    border-radius: 25px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    font-family:tahoma;  
+}
+.side-pedido {
+    width: 20%;
+    float:left; 
+    padding:5px;
+    text-align: center;
+    display: inline;
+    position: fixed;
+}
+.side-pedido p, .side-pedido table {
+    display:block;
+    width:100%;
+}
+.side-pedido td {
+    width:33%;
+}
+.form-pizzas {
+    width:70%;
+    height: 500px;
+    padding:20px 5%;
+    margin-left: 25%;
+}
+.total {
+    text-align: right;
+    padding-right:20px;
+}
+.inline{
+    display: inline-table;
+}
+.extra{
+    background-color:white;
+    margin:10%;
+    border-radius: 25px;
+    padding:50px;
+}
+
+.inline .filters{
+    display: block;
+    margin-bottom: 40px;
+}
+.filters select, .filters input {
+    width:30%;
+    height:4rem;
+    color:black;
 }

@@ -47,6 +47,13 @@ $app->get('/ofertas[/]', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/ofertas/{id}', function ($request, $response, $args) {
+    $datos = Oferta::TraerUnaOferta($args['id']);
+    $response->write(json_encode($datos)); 
+    
+    return $response;
+});
+
 $app->get('/pedidos[/]', function ($request, $response, $args) {
     $datos = Pedido::TraerTodosLosPedidos();
     $response->write(json_encode($datos)); 
@@ -126,6 +133,22 @@ $app->get('/usuarios/sucursal/{id}', function ($request, $response, $args) {
     return $response;
 });
 
+$app->get('/pedidospormes[/]', function($request, $response,$args) {
+    $datos = Pedido::VerPedidosPorMes();
+    $response->write(json_encode($datos));
+
+    return $response;
+});
+
+$app->get('/encuestas/{idusuario}', function($request, $response,$args) {
+    $datos = Encuesta::TraerUnaEncuesta($args['idusuario']);
+    $response->write(json_encode($datos));
+
+    return $response;
+});
+
+
+
 $app->post('/ofertas/{objeto}', function ($request, $response, $args) {
     $oferta = json_decode($args['objeto']);
 
@@ -175,6 +198,10 @@ $app->post('/usuarios/{objeto}', function ($request, $response, $args) {
     
     $response->write($args['objeto']);
 }); 
+
+$app->put('/estadoEncuesta/{id}/{estado}', function($request, $response, $args){
+    Usuario::ModificarEstadoEncuesta($args['id'], $args['estado']);
+});
 
 $app->put('/ofertas/{objeto}', function ($request, $response, $args) {
 
