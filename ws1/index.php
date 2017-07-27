@@ -160,13 +160,11 @@ $app->post('/ofertas/{objeto}', function ($request, $response, $args) {
 $app->post('/pedidos/{objeto}', function ($request, $response, $args) {
     $pedido = json_decode($args['objeto']);
 
-    Pedido::InsertarPedido($pedido);
-    
-    $response->write($args['objeto']);
+    return Pedido::InsertarPedido($pedido);
 });
 
 $app->post('/encuestas/{objeto}', function ($request, $response, $args) {
-    $encuesta = json_decode($args['objeto'], true);
+    $encuesta = json_decode($args['objeto']);
 
     Encuesta::InsertarEncuesta($encuesta);
     
@@ -213,13 +211,8 @@ $app->put('/ofertas/{objeto}', function ($request, $response, $args) {
     $response->write($args['objeto']);
 });
 
-$app->put('/pedidos/{objeto}', function ($request, $response, $args) {
-
-    $pedido = json_decode($args['objeto']);
-    
-    Pedido::ModificarPedido($pedido);
-    
-    $response->write($args['objeto']);
+$app->put('/pedidos/{id}/{estado}', function ($request, $response, $args) {
+    return Pedido::ModificarPedido($args['id'], $args['estado']);
 });
 
 $app->put('/encuestas/{objeto}', function ($request, $response, $args) {

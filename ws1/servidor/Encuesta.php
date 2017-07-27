@@ -133,7 +133,15 @@ class Encuesta
 	public static function TraerTodasLasEncuestas()
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * FROM encuestas ");
+		$consulta =$objetoAccesoDato->RetornarConsulta("
+			SELECT 
+				AVG(puntuacion_producto) as puntuacion_producto, 
+				AVG(puntuacion_medio) as puntuacion_medio, 
+				AVG(puntuacion_rapidez) as puntuacion_rapidez, 
+				ROUND(MONTH(fecha), 1) as mes
+			FROM encuestas
+			GROUP BY MONTH(fecha)
+			");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
 		$consulta->execute();			
 		$arrEncuestas= $consulta->fetchAll(PDO::FETCH_CLASS, "encuesta");	
@@ -156,7 +164,7 @@ class Encuesta
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				UPDATE encuestas 
-				SET id_cliente=:id_cliente,
+				SET id_usuario=:id_usuario,
 				puntuacion_producto=:puntuacion_producto,
 				puntuacion_medio=:puntuacion_medio,
 				puntuacion_rapidez=:puntuacion_rapidez,
@@ -164,7 +172,7 @@ class Encuesta
 				fecha=:fecha
 				WHERE id_encuesta=:id_encuesta");
 			$consulta->bindValue(':id_encuesta',$encuesta->id_encuesta, PDO::PARAM_INT);
-			$consulta->bindValue(':id_cliente', $encuesta->id_cliente, PDO::PARAM_INT);
+			$consulta->bindValue(':id_usuario', $encuesta->id_usuario, PDO::PARAM_INT);
 			$consulta->bindValue(':puntuacion_producto', $encuesta->$puntuacion_producto, PDO::PARAM_INT);
 			$consulta->bindValue(':puntuacion_medio', $encuesta->puntuacion_medio, PDO::PARAM_INT);
 			$consulta->bindValue(':puntuacion_rapidez', $encuesta->puntuacion_rapidez, PDO::PARAM_INT);
@@ -177,29 +185,32 @@ class Encuesta
 
 //--------------------------------------------------------------------------------//
 
-	public static function Insertarencuesta($encuesta)
+	public static function InsertarEncuesta($encuesta)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 		$consulta = $objetoAccesoDato->RetornarConsulta("
 			INSERT INTO encuestas 
-				(id_cliente,
+				(id_usuario,
 				puntuacion_producto,
 				puntuacion_rapidez,
 				puntuacion_medio,
 				adicional,
+				id_pedido,
 				fecha)
 			VALUES(
-				:id_cliente,
+				:id_usuario,
 				:puntuacion_producto,
 				:puntuacion_rapidez,
 				:puntuacion_medio,
 				:adicional,
+				:id_pedido,
 				:fecha)");
-		$consulta->bindValue(':id_cliente', $encuesta->id_cliente, PDO::PARAM_INT);
-		$consulta->bindValue(':puntuacion_producto', $encuesta->$puntuacion_producto, PDO::PARAM_INT);
-		$consulta->bindValue(':puntuacion_rapidez', $encuesta->puntuacion_medio, PDO::PARAM_INT);
-		$consulta->bindValue(':puntuacion_medio', $encuesta->puntuacion_rapidez, PDO::PARAM_INT);
+		$consulta->bindValue(':id_usuario', $encuesta->id_usuario, PDO::PARAM_INT);
+		$consulta->bindValue(':puntuacion_producto', $encuesta->puntuacion_producto, PDO::PARAM_INT);
+		$consulta->bindValue(':puntuacion_rapidez', $encuesta->puntuacion_rapidez, PDO::PARAM_INT);
+		$consulta->bindValue(':puntuacion_medio', $encuesta->puntuacion_medio, PDO::PARAM_INT);
 		$consulta->bindValue(':adicional', $encuesta->adicional, PDO::PARAM_STR);
+		$consulta->bindValue(':id_pedido', $encuesta->id_pedido, PDO::PARAM_INT);
 		$consulta->bindValue(':fecha', $encuesta->fecha, PDO::PARAM_STR);
 		//$consulta->bindValue(':codFoto1, $encuesta->codFoto1 PDO::PARAM_STR);
 		$consulta->execute();		

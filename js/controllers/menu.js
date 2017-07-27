@@ -1,24 +1,26 @@
 angular.module("salaDeJuegosApp");
 
 
-salaApp.controller("MenuCtrl", function($scope, $rootScope, UsuarioActual, SrvPedidos){
+salaApp.controller("MenuCtrl", function($scope, $rootScope, UsuarioActual, SrvPedidos, $timeout, $state){
+	if(!UsuarioActual.getCargo()){
+		$state.go('usuario.login');
+	}
+
 	$scope.pedido = {
-		cliente: {
-			nombre: ''
-		},
+		cliente: [],
 		productos: []
 	};
-	$scope.usuario = {};
+	$scope.usuario = [];
 
 	$rootScope.$on('login', function(event, data){
+		$timeout(function(){
+			UsuarioActual.getName();
+			$scope.pedido.cliente.push(UsuarioActual.getFullData());
 
-		UsuarioActual.getName();
-		$scope.pedido.cliente.nombre = UsuarioActual.getName();
-		$scope.usuario.tipo = UsuarioActual.getCargo();
+			console.log($scope.pedido.cliente);
+			
+		});
 
-		console.log($scope.usuario);
-		console.log(UsuarioActual.getCargo());
-		
 	})
 	
 
@@ -30,22 +32,18 @@ salaApp.controller("MenuCtrl", function($scope, $rootScope, UsuarioActual, SrvPe
 		for(var pedido of $scope.pedido.productos){
 			$scope.pedido.total += pedido.total;
 		}
+
+		if(!$scope.pedido.sucursal){
+			$scope.pedido.sucursal = { id:data.id_sucursal, nombre:data.snombre};
+
+			$scope.pedido.cliente.push(JSON.parse(UsuarioActual.getFullData()));
+		}
+
 	});
 
 	$scope.realizarPedido = function(){
 		document.getElementById('finalizacion-pedido').style.display = 'block';
 		$scope.PedidoPorParametro = $scope.pedido;
-	}
-
-	$scope.confirmar = function(){
-		console.log($scope.PedidoPorParametro);
-
-		SrvPedidos.insertarPedido($scope.PedidoPorParametro)
-		.then(function(res){
-			console.info(res);
-		}).catch(function(error){
-			console.error(error);
-		})
 	}
 });
 

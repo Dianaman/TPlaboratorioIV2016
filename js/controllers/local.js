@@ -1,6 +1,12 @@
 angular.module("salaDeJuegosApp");
 
-salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales, SrvUsuarios, NgMap){
+salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales, SrvUsuarios, NgMap, UsuarioActual){
+
+    if(!UsuarioActual.getCargo()){
+        $state.go('usuario.login');
+    } else if(UsuarioActual.getCargo() == 'comprador'){
+        $state.go('menu.todos');
+    }
 
 	$scope.titulo = "Listado de Sucursales";
 
@@ -117,6 +123,12 @@ salaApp.controller('LocalesCtrl', function($scope, $state, $timeout, SrvLocales,
 
 salaApp.controller('LocalAltaCtrl', function($scope, $state, $timeout,UsuarioActual,FileUploader,SrvLocales, SrvUsuarios){
 	
+    if(!UsuarioActual.getCargo()){
+        $state.go('usuario.login');
+    } else if(UsuarioActual.getCargo() == 'comprador'){
+        $state.go('menu.todos');
+    }
+
 	$scope.SubidorDeArchivos=new FileUploader({url:SrvLocales.traerUrlFotos()});
   	$scope.SubidorDeArchivos.queueLimit = 3;
 

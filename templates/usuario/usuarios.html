@@ -9,7 +9,6 @@
 			<th>Tipo</th>
 			<th>Sucursal</th>
 			<th>Pedidos</th>
-			<th>Encuesta</th>
 			<th></th>
 		</thead>
 		<tbody>
@@ -20,9 +19,6 @@
 				<td ng-bind="persona.tipo"></td>
 				<td ng-bind="persona.id_sucursal"></td>
 				<td ng-bind="persona.pedidosRealizados"></td>
-				<td>
-					<button class="btn btn-success btn-table btn--small" ng-click="enviarEncuesta(persona)" ng-if="persona.estadoencuesta == 'disponible'">Enviar encuesta</button>
-					<button class="btn btn-info btn-table btn--small" ng-click="verEncuesta(persona)"  ng-if="persona.estadoencuesta == 'realizada'">Ver Encuesta</button>
 				<td>
 					<button class="btn btn-warning btn-table btn--small" ng-click="modificarPersona(persona)">Modificar</button>
 					<button class="btn btn-danger btn-table btn--small" ng-click="borrarPersona(persona)">Borrar</button>

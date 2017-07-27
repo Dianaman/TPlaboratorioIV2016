@@ -148,9 +148,8 @@ salaApp.controller("UsuarioAltaCtrl", function($scope, $state, FileUploader, Srv
 		console.error(error)
 	})
 
-
-
-	$scope.SubidorDeArchivos = new FileUploader({url:'servidor/nexo.php'});
+	$scope.SubidorDeArchivos=new FileUploader({url:SrvLocales.traerUrlFotos()});
+  	$scope.SubidorDeArchivos.queueLimit = 3;
 
     $scope.SubidorDeArchivos.onCompleteAll = function() {
 		$scope.sucursal.foto = $scope.SubidorDeArchivos.queue[0];
@@ -191,7 +190,14 @@ salaApp.controller("UsuarioAltaCtrl", function($scope, $state, FileUploader, Srv
 
 });
 
-salaApp.controller("UsuarioGrillaCtrl", function($scope, SrvUsuarios, SrvEncuestas, $state){
+salaApp.controller("UsuarioGrillaCtrl", function($scope, SrvUsuarios, SrvEncuestas, $state, UsuarioActual){
+
+    if(!UsuarioActual.getCargo()){
+        $state.go('usuario.login');
+    } else if(UsuarioActual.getCargo() == 'comprador'){
+    	$state.go('menu.todos');
+    }
+
 	SrvUsuarios.traerTodos()
 	.then(function(response){
 		$scope.personas = response.data;

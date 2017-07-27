@@ -1,7 +1,7 @@
 angular.module("salaDeJuegosApp");
 
 
-salaApp.controller("ProductoAltaCtrl", function($scope, $state, FileUploader, SrvProductos, SrvLocales, $stateParams, $timeout){
+salaApp.controller("ProductoAltaCtrl", function($scope, $state, FileUploader, SrvProductos, SrvLocales, $stateParams, $timeout, UsuarioActual){
 
 	$scope.producto = {
 		nombre: 'Fugazzeta',
@@ -15,6 +15,12 @@ salaApp.controller("ProductoAltaCtrl", function($scope, $state, FileUploader, Sr
 		}]
 	};
 	
+    if(!UsuarioActual.getCargo()){
+        $state.go('usuario.login');
+    } else if(UsuarioActual.getCargo() == 'comprador'){
+    	$state.go('menu.todos');
+    }
+
 	$scope.modo = ($stateParams.id_producto != '' ? 'Modificar' : 'Agregar');
 	console.info($scope.producto);
 
@@ -105,7 +111,14 @@ salaApp.controller("ProductoAltaCtrl", function($scope, $state, FileUploader, Sr
 
 });
 
-salaApp.controller("ProductosCtrl", function($scope, SrvProductos, $state){
+salaApp.controller("ProductosCtrl", function($scope, SrvProductos, $state, UsuarioActual){
+
+    if(!UsuarioActual.getCargo()){
+        $state.go('usuario.login');
+    } else if(UsuarioActual.getCargo() == 'comprador'){
+    	$state.go('menu.todos');
+    }
+
 	SrvProductos.traerTodos()
 	.then(function(response){
 		$scope.productos = response.data;

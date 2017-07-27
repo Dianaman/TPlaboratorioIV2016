@@ -4,24 +4,30 @@
   <table class="inline-table">
     <tr>
       <th>Cliente</th>
-      <td>{{miPedido.cliente.id_cliente}} : {{miPedido.cliente.nombre}}</td>
+      <td>{{miPedido.cliente[0].id_cliente}} : {{miPedido.cliente[0].nombre}}</td>
     </tr>
     <tr>
       <th>Dirección</th>
-      <td>{{miPedido.cliente.direccion}}, {{miPedido.cliente.localidad}}</td>
+      <td>{{miPedido.cliente[0].direccion}}, {{miPedido.cliente[0].localidad}}</td>
     </tr>
     <tr>
       <th>Teléfono</th>
-      <td>{{miPedido.cliente.telefono}}</td>
+      <td>{{miPedido.cliente[0].telefono}}</td>
     </tr>
     <tr>
       <th>Email</th>
-      <td>{{miPedido.cliente.email}}</td>
+      <td>{{miPedido.cliente[0].email}}</td>
     </tr>
     <tr>
       <th>Sucursal</th>
       <td>{{miPedido.id_sucursal}} : {{miPedido.snombre}}</td>
     </tr>
+    <tr>
+      <th>Fecha</th>
+      <td><input type="date" name="fechaEntrega" min="{{fecha.min}}" max="{{fecha.max}}"
+      placeholder="Fecha de entrega" ng-model="miPedido.fechaPedido" ng-change="checkDate()"></td>
+    </tr>
+
   </table>
 
   <table class="multi-items">
@@ -34,7 +40,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="p in miPedido.productos">
-        <td>{{p.id}}</td>
+        <td>{{p.id_producto}}</td>
         <td>{{p.nombre}}</td>
         <td>{{p.cantidad}}</td>
         <td>{{p.total}}</td>
@@ -48,4 +54,6 @@
     </tbody>
 
   </table>
+
+    <button class="btn btn-success btn-block" ng-click="confirmar()" ng-disabled="invalidDate">CONFIRMAR COMPRA</button>
 </div>

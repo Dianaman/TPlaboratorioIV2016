@@ -1,17 +1,18 @@
 <div id="encuesta" class="form-usuario">
 	<h1>Encuesta de satisfacción</h1>
 	<input type="hidden" name="usuario" ng-model="encuesta.id_usuario">
+	<input type="hidden" name="pedido" ng-model="encuesta.id_pedido">
 
 	<label>Producto</label>
-	<input type="number" name="producto" ng-model="encuesta.puntuacion_producto">
+	<input type="number" name="producto" min="1" max="5" ng-model="encuesta.puntuacion_producto">
 
 
 	<label>Rapidez</label>
-	<input type="number" name="rapidez" ng-model="encuesta.puntuacion_rapidez">
+	<input type="number" name="rapidez" min="1" max="5" ng-model="encuesta.puntuacion_rapidez">
 
 
 	<label>Medio utilizado</label>
-	<input type="number" name="medio" ng-model="encuesta.puntuacion_medio">
+	<input type="number" name="medio" min="1" max="5" ng-model="encuesta.puntuacion_medio">
 
 
 	<label>Comentario adicional</label>
@@ -20,7 +21,7 @@
 	<button class="btn btn-block btn-submit" ng-click="enviarEncuesta()">Enviar encuesta</button>
 </div>
 
-<div id="gracias" class="form-mensaje" style="display: none">
+<div id="gracias" class="modal" style="display: none">
 	<h2>Muchas gracias por su opinion!</h2>
 
 	<button ng-click="irAMenu()" class="btn btn-block btn-danger">Salir</button>

@@ -179,7 +179,7 @@ angular.module('salaDeJuegosApp')
 	this.traerTodos = TraerTodos;
 	this.traerUno = TraerUno;
 	this.borrarPedido = BorrarPedido;
-	this.modificarPedido = ModificarPedido;
+	this.modificarEstado = ModificarEstado;
 	this.verPedidosPorMes = VerPedidosPorMes;
 
 	var url = factoryRutas.RutaPedidos;
@@ -193,9 +193,11 @@ angular.module('salaDeJuegosApp')
 			})
 	};
 
-	function ModificarPedido(pedido){
-		console.log(pedido);
-		return $http.put(url + pedido)
+	function ModificarEstado(pedidoid, estado){
+		console.log(estado);
+		console.log(pedidoid);
+		
+		return $http.put(url + pedidoid + '/'+ estado)
 			.then(function (respuesta){
 				return respuesta;
 			}).catch(function (error){
@@ -306,6 +308,7 @@ angular.module('salaDeJuegosApp')
 	var url = factoryRutas.RutaEncuestas;
 
 	function InsertarEncuesta(encuesta){
+		
 		return $http.post(url + encuesta)
 			.then(function (respuesta){
 				return respuesta;

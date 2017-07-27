@@ -1,4 +1,4 @@
-<?php
+	<?php
 require_once"AccesoDatos.php";
 class Pedido
 {
@@ -200,27 +200,15 @@ class Pedido
 		
 	}
 	
-	public static function ModificarPedido($pedido)
+	public static function ModificarPedido($pedido, $estado)
 	{
 			$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
 			$consulta =$objetoAccesoDato->RetornarConsulta("
 				UPDATE pedidos 
-				SET id_producto=:idProd,
-				id_sucursal=:idSuc,
-				id_cliente=:idCliente,
-				monto=:monto,
-				fechaPedido=:fechaPedido,
-				cantPedida=:cantPedida,
-				estado=:estado
+				SET estado=:estado
 				WHERE id_pedido=:idPed");
-			$consulta->bindValue(':idPed',$pedido->idPed, PDO::PARAM_INT);
-			$consulta->bindValue(':idProd', $pedido->idProd, PDO::PARAM_INT);
-			$consulta->bindValue(':idSuc', $pedido->idSuc, PDO::PARAM_INT);
-			$consulta->bindValue(':idCliente', $pedido->idCliente, PDO::PARAM_INT);
-			$consulta->bindValue(':monto', $pedido->monto, PDO::PARAM_INT);
-			$consulta->bindValue(':fechaPedido', $pedido->fechaPedido, PDO::PARAM_STR);
-			$consulta->bindValue(':cantPedida', $pedido->cantPedida, PDO::PARAM_STR);
-			$consulta->bindValue(':estado', $pedido->estado, PDO::PARAM_STR);
+			$consulta->bindValue(':idPed',$pedido, PDO::PARAM_INT);
+			$consulta->bindValue(':estado', $estado, PDO::PARAM_STR);
 			return $consulta->execute();
 	}
 
@@ -231,19 +219,36 @@ class Pedido
 	public static function InsertarPedido($pedido)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos (id_producto,id_sucursal,id_cliente,monto,fechaPedido,cantPedida,estado) values(:idProd,:idSuc,:idCliente,:monto,:fechaPedido,:cantPedida,:estado)");
-		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL Insertarpedido (:nombre,:nombre,:dni,:foto1,:foto1,:foto1,:codFoto1");
-		$consulta->bindValue(':idProd', $pedido->idProd, PDO::PARAM_INT);
-		$consulta->bindValue(':idSuc', $pedido->idSuc, PDO::PARAM_INT);
-		$consulta->bindValue(':idCliente', $pedido->idCliente, PDO::PARAM_INT);
-		$consulta->bindValue(':monto', $pedido->monto, PDO::PARAM_INT);
-		$consulta->bindValue(':fechaPedido', $pedido->fechaPedido, PDO::PARAM_STR);
-		$consulta->bindValue(':cantPedida', $pedido->cantPedida, PDO::PARAM_STR);
-		$consulta->bindValue(':estado', $pedido->estado, PDO::PARAM_STR);
-		//$consulta->bindValue(':codFoto1, $pedido->codFoto1 PDO::PARAM_STR);
-		$consulta->execute();		
-		return $objetoAccesoDato->RetornarUltimoIdInsertado();
-	
+		try {	
+			$objetoAccesoDato->ComenzarTransaccion();
+			$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into pedidos (id_sucursal,id_cliente,monto,fechaPedido,estado) values(:id_sucursal,:id_cliente,:monto,:fechaPedido,:estado)");
+			//$consulta =$objetoAccesoDato->RetornarConsulta("CALL Insertarpedido (:nombre,:nombre,:dni,:foto1,:foto1,:foto1,:codFoto1");
+			$consulta->bindValue(':id_sucursal', $pedido->id_sucursal, PDO::PARAM_INT);
+			$consulta->bindValue(':id_cliente', $pedido->id_cliente, PDO::PARAM_INT);
+			$consulta->bindValue(':monto', $pedido->monto, PDO::PARAM_INT);
+			$consulta->bindValue(':fechaPedido', $pedido->fechaPedido, PDO::PARAM_STR);
+			$consulta->bindValue(':estado', $pedido->estado, PDO::PARAM_STR);
+			//$consulta->bindValue(':codFoto1, $pedido->codFoto1 PDO::PARAM_STR);
+			$consulta->execute();		
+			$id_pedido = $objetoAccesoDato->RetornarUltimoIdInsertado();
+
+			foreach($pedido->productos as $ped){
+				$sql = "INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad)
+						VALUES (".$id_pedido.",".$ped->id_producto.",".$ped->cantidad.");";
+				//$sql->bindValue(':id_pedido', $id_pedido, PDO::PARAM_INT);
+				//$sql->bindValue(':id_producto', $ped->id_producto, PDO::PARAM_INT);
+				//$sql->bindValue(':cantidad', $ped->cantidad, PDO::PARAM_INT);
+				$objetoAccesoDato->EjecutarTransaccion($sql);
+
+			}
+
+			$objetoAccesoDato->GuardarTransaccion();
+			return $objetoAccesoDato->RetornarUltimoIdInsertado();
+		} catch (PDOException $e){
+			
+			$objetoAccesoDato->RevertirTransaccion();
+			return $e->getMessage();
+		}
 				
 	}	
 //--------------------------------------------------------------------------------//

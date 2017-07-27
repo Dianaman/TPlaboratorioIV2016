@@ -1,10 +1,10 @@
-<div class="menu side-pedido" ng-if="usuario.tipo == 'comprador'">
+<div class="menu side-pedido">
 	<h1>Pedido</h1>
-	<p>{{pedido.cliente.nombre}}</p>
-	<p>{{pedido.cliente.direccion}}</p>
-	<p>{{pedido.cliente.localidad}}</p>
+	<p>{{pedido.cliente[0].nombre}}</p>
+	<p>{{pedido.cliente[0].direccion}}</p>
+	<p>{{pedido.cliente[0].localidad}}</p>
 	<p>{{pedido.fecha}}</p>
-	<p>{{pedido.sucursal}}</p>
+	<p>{{pedido.sucursal.snombre}}</p>
 	<hr>
 	<table>
 		<tr ng-repeat="prod in pedido.productos">
@@ -26,7 +26,6 @@
   <form class="modal-content animate" >
       <modal-pedido-finalizado pedidoporparametro="PedidoPorParametro"></modal-pedido-finalizado>
 
-	  <button class="btn btn-success btn-block" ng-click="confirmar()">CONFIRMAR COMPRA</button>
       <button class="btn btn-danger btn-block" onclick="document.getElementById('finalizacion-pedido').style.display='none'">
       	VOLVER
       </button> 

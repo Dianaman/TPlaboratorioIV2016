@@ -7,8 +7,8 @@
 			    <th>CLIENTE</th>
 			    <th>FECHA DE PEDIDO</th>
 			    <th>MONTO TOTAL</th>
-			    <th>DETALLE</th>
 			    <th>ESTADO</th>
+			    <th>DETALLE</th>
 			    <th>ACCIÓN</th>
 			</tr>
 			<tr ng-repeat="ped in ListaPedidos">
@@ -17,12 +17,13 @@
 				<td><button class="btn btn-danger" ng-click="MostrarCliente(ped.id_cliente)">VER CLIENTE</button></td>
 				<td>{{ped.fechaPedido | date : "dd'/'MM'/'yyyy"}}</td>
 				<td>${{ped.monto}}</td>
-				<td><button class="btn btn-danger" ng-click="MostrarDetalle(ped)">VER DETALLE</button></td>
 				<td>{{ped.estado}}</td>
+				<td><button class="btn btn-danger" ng-click="MostrarDetalle(ped)">VER DETALLE</button></td>
 				<td>
-					<button class="btn btn-danger" ng-click="CerrarPedido(ped)" ng-show="(ped.estado == 'Pendiente' && (ped.idCliente == userActual.id || userActual.cargo != 'Cliente') )">CERRAR PEDIDO</button>
-					<button class="btn btn-danger" ng-click="RealizarEncuesta(ped)" ng-show="(ped.estado == 'Esperando Encuesta' && userActual.cargo == 'Cliente')">REALIZAR ENCUESTA</button>
-					<button class="btn btn-success" ng-click="ModificarPedido(ped)" ng-show="(userActual.cargo == 'Encargado')">MODIFICAR</button>
+					<button class="btn btn-danger" ng-show="(ped.estado == 'entregado' && userActual.cargo == 'comprador')" ng-click="RealizarEncuesta(ped)">Realizar encuesta</button>
+					<button class="btn btn-danger" ng-click="CambiarEstado(ped, 'cancelado')" ng-show="(ped.estado == 'pendiente' && (ped.id_cliente == userActual.id || userActual.cargo != 'comprador') )">CANCELAR PEDIDO</button>
+					<button class="btn btn-success btn--small" ng-click="CambiarEstado(ped, 'aceptado')" ng-show="(ped.estado == 'pendiente' && userActual.cargo != 'comprador' )">ACEPTAR PEDIDO</button>
+					<button class="btn btn-success" ng-click="CambiarEstado(ped, 'entregado')" ng-show="(ped.estado == 'aceptado' &&  userActual.cargo != 'comprador' )">FINALIZAR PEDIDO</button>
 				</td>
 			</tr>
 	</table>

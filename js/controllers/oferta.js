@@ -2,6 +2,12 @@ angular.module("salaDeJuegosApp");
 
 salaApp.controller('OfertasCtrl', function($scope, $state, $timeout, SrvOfertas, SrvProductos, SrvLocales, UsuarioActual){
 
+    if( UsuarioActual.getCargo()){
+        $state.go('usuario.login');
+    } else if(UsuarioActual.getCargo() == 'comprador'){
+        $state.go('menu.todos');
+    }
+    
 	$scope.titulo = "Listado de Ofertas";
     $scope.ListaOfertas = [];
     $scope.OfertaParaModificar = {};
@@ -81,6 +87,12 @@ salaApp.controller('OfertasCtrl', function($scope, $state, $timeout, SrvOfertas,
 
 salaApp.controller('OfertaAltaCtrl', function($scope, $state, $stateParams, $timeout, UsuarioActual, SrvOfertas, SrvProductos, SrvLocales){
 
+    if( UsuarioActual.getCargo()){
+        $state.go('usuario.login');
+    } else if(UsuarioActual.getCargo() == 'comprador'){
+        $state.go('menu.todos');
+    }
+    
 	$scope.usuario = JSON.parse(UsuarioActual.getFullData());
 
 	$scope.ofer = {};

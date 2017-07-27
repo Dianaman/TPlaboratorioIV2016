@@ -1,5 +1,5 @@
 <div class="form-usuario" >
-<ng-form name="FormAltaPersona" nv-file-drop="" uploader="SubidorDeArchivos">
+<ng-form name="FormAltaPersona">
 	<h1>{{modo}}</h1>
 
 	<input type="text" name="nombre" ng-model="persona.nombre" placeholder="Ingrese nombre" required/>
@@ -11,10 +11,11 @@
         <option value="encargado">Encargado</option>
         <option value="admin">Admin</option>
     </select>
-    <select name="sucursal" ng-model="persona.id_sucursal">
+    <select name="sucursal" ng-model="persona.id_sucursal" ng-if="!nuevocliente">
         <option ng-repeat="s in sucursales" ng-value="s.id_sucursal">{{s.nombre}}</option>
     </select>
-    
+
+    <br><br>
     <input type="text" name="direccion" ng-model="persona.direccion" placeholder="Ingrese dirección" required/>
     <input type="text" name="localidad" ng-model="persona.localidad" placeholder="Ingrese localidad" required/>
     <input type="number" name="telefono" ng-model="persona.telefono" placeholder="Ingrese teléfono" required/>
@@ -27,5 +28,5 @@
     </li>  
       
 
-	<br><br><button type="submit" name="btnRegistrar" ng-click="SubidorDeArchivos.uploadAll()" >Enviar datos</button>
+	<br><br><button type="submit" name="btnRegistrar" ng-click="enviarDatos()" >Enviar datos</button>
 </form></div>
