@@ -36,3 +36,22 @@ salaApp.controller('EncuestaCtrl', function($scope, SrvEncuestas, SrvPedidos, Us
     }
 });
 
+salaApp.controller('EncuestasCtrl', function($scope, SrvEncuestas, UsuarioActual, $state){
+
+    console.log(UsuarioActual.getCargo());
+    if(!UsuarioActual.getCargo()){
+        $state.go('usuario.login');
+    } else if(UsuarioActual.getCargo() != 'admin'){
+      $state.go('menu.todos');
+    }
+
+    $scope.encuestas = [];
+
+    SrvEncuestas.traerTodasLasEncuestas()
+    .then(function(res){
+        console.log(res);
+        $scope.encuestas = res.data;
+    }).catch(function(error){
+        console.error(error);
+    })
+});

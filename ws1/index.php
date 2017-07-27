@@ -147,7 +147,11 @@ $app->get('/encuestas/{idusuario}', function($request, $response,$args) {
     return $response;
 });
 
-
+$app->get('/encuestastodas', function($request, $response,$args) {
+    $datos = Encuesta::TraerEncuestas();    
+    $response->write(json_encode($datos));
+    return $response;
+});
 
 $app->post('/ofertas/{objeto}', function ($request, $response, $args) {
     $oferta = json_decode($args['objeto']);

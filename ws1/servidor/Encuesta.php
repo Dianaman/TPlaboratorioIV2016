@@ -129,6 +129,22 @@ class Encuesta
 		return $encuestaBuscada;	
 					
 	}
+
+	public static function TraerEncuestas(){
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("SELECT 
+			puntuacion_producto, 
+			puntuacion_medio, 
+			puntuacion_rapidez, 
+			u.nombre as nombre,
+			id_pedido
+		 FROM encuestas, misusuarios as u
+		 WHERE u.id = encuestas.id_usuario");
+		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL TraerTodasLasPersonas() ");
+		$consulta->execute();
+		$arrEncuestas= $consulta->fetchAll();	
+		return $arrEncuestas;
+	}
 	
 	public static function TraerTodasLasEncuestas()
 	{

@@ -304,6 +304,7 @@ angular.module('salaDeJuegosApp')
 	this.traerTodas = TraerTodas;
 	this.borrarEncuesta = BorrarEncuesta;
 	this.traerUna = TraerUna;
+	this.traerTodasLasEncuestas= TraerTodasLasEncuestas;
 
 	var url = factoryRutas.RutaEncuestas;
 
@@ -319,6 +320,15 @@ angular.module('salaDeJuegosApp')
 
 	function TraerTodas(){
 		return $http.get(url)
+			.then(function (respuesta){
+				return respuesta;
+			}).catch(function (error){
+				console.info("error", error);
+			})
+	};
+
+	function TraerTodasLasEncuestas(){
+		return $http.get('http://localhost/TPlaboratorioIV2016/ws1/encuestastodas')
 			.then(function (respuesta){
 				return respuesta;
 			}).catch(function (error){

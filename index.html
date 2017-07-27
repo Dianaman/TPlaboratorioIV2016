@@ -62,6 +62,7 @@
 		<button ng-click="IrAPedido()" ng-show="usuario.loggeado">Pedidos</button>
 		<button ng-click="IrAProductos()" ng-show="usuario.tipo == 'encargado' || usuario.tipo == 'admin'">Productos</button>
 		<button ng-click="IrAUsuarios()" ng-show="usuario.tipo == 'admin'">Usuarios</button>
+		<button ng-click="IrAEncuestas()" ng-show="usuario.tipo == 'admin'">Encuestas</button>
 		<button ng-click="IrAEstadisticas()" ng-show="usuario.tipo == 'admin'">Estadísticas</button>
 	</div>
 </body>

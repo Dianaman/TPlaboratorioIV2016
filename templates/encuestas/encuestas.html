@@ -1,0 +1,22 @@
+<div class="form-lista">
+	<h1>Encuestas</h1>
+	<table class="table table-hover">
+		<tr>
+			<th>Usuario</th>
+			<th>Pedido</th>
+		    <th>Producto</th>
+		    <th>Rapidez</th>
+		    <th>Medio</th>
+		</tr>
+
+		<tr ng-repeat="enc in encuestas">
+			<td>{{enc.nombre}}</td>
+			<td>{{enc.id_pedido}}</td>
+			<td>{{enc.puntuacion_producto}}</td>
+			<td>{{enc.puntuacion_rapidez}}</td>
+			<td>{{enc.puntuacion_medio}}</td>
+		</tr>
+	</table>
+
+	
+</div>	

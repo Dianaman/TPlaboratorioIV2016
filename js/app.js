@@ -175,8 +175,15 @@ salaApp.config(function($stateProvider, $urlRouterProvider, $authProvider){
 		.state(
 			"encuesta", {
 				url: '/encuesta/:pedido',
-				templateUrl: 'templates/encuesta.html',
+				templateUrl: 'templates/encuestas/encuesta.html',
 				controller: 'EncuestaCtrl'	
+			})
+
+		.state(
+			"encuestas", {
+				url: '/encuestas',
+				templateUrl: 'templates/encuestas/encuestas.html',
+				controller: 'EncuestasCtrl'	
 			})
 		$urlRouterProvider.otherwise("/persona/menu");
 		
@@ -215,6 +222,10 @@ salaApp.run(function($rootScope, $state){
 
   $rootScope.IrAEstadisticas = function(){
   	$state.go('estadisticas');
+  }
+
+  $rootScope.IrAEncuestas = function(){
+  	$state.go('encuestas');
   }
 
   $rootScope.IrAUsuarios = function(){
